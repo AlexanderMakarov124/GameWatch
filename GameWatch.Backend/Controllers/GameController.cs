@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace GameWatch.Backend.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/games")]
 public class GameController : ControllerBase
 {
     private readonly ApplicationContext db;
@@ -15,10 +15,12 @@ public class GameController : ControllerBase
         this.db = db;
     }
 
-    public Game Get()
+    [HttpGet]
+    [Produces("application/json")]
+    public IEnumerable<Game> GetAllGames()
     {
-        var game = db.Games.First();
+        var games = db.Games;
 
-        return game;
+        return games;
     }
 }
