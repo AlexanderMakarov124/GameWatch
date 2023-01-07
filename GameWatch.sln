@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "GameWatch.Frontend", "GameWatch.Frontend\GameWatch.Frontend.esproj", "{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatch.Backend", "GameWatch.Backend\GameWatch.Backend.csproj", "{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EAB02C79-3DA5-44F6-A409-9E26FC56041D}
+	EndGlobalSection
+EndGlobal
