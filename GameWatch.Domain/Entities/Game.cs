@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace GameWatch.Domain.Entities;
 
-namespace GameWatch.Domain.Entities;
-
-public partial class Game
+public class Game
 {
     public int Id { get; set; }
 

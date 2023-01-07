@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationContext>(options =>
-    options.UseNpgsql(connection));
+    options.UseSqlServer(connection));
 
 var app = builder.Build();
 
