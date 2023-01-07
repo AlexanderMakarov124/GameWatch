@@ -6,8 +6,4 @@ namespace GameWatch.Backend.Controllers;
 [Route("[controller]")]
 public class GameController : ControllerBase
 {
-    public IActionResult Get()
-    {
-        return View();
-    }
 }
