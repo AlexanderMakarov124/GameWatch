@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 namespace GameWatch.Backend.Controllers;
-public class GameController : Controller
+
+[ApiController]
+[Route("[controller]")]
+public class GameController : ControllerBase
 {
-    public IActionResult Index()
+    public IActionResult Get()
     {
         return View();
     }

@@ -1,0 +1,5 @@
+CREATE TABLE Games
+(
+	Id SERIAL PRIMARY KEY,
+	Name VARCHAR(75)
+)

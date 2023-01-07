@@ -7,6 +7,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "GameWatch.Frontend", "GameW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatch.Backend", "GameWatch.Backend\GameWatch.Backend.csproj", "{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatch.DataAccess", "GameWatch.DataAccess\GameWatch.DataAccess.csproj", "{E0797A14-253B-4A82-B8E0-F6BFAE9CFEE4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0797A14-253B-4A82-B8E0-F6BFAE9CFEE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0797A14-253B-4A82-B8E0-F6BFAE9CFEE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0797A14-253B-4A82-B8E0-F6BFAE9CFEE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0797A14-253B-4A82-B8E0-F6BFAE9CFEE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
