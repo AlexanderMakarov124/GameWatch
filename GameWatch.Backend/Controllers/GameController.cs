@@ -89,7 +89,7 @@ public class GameController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("{name}")]
+    [HttpDelete("{name}")]
     public ActionResult DeleteGame(Game game)
     {
         db.Games.Remove(game);
