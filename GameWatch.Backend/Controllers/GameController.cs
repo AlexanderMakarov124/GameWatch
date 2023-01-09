@@ -64,13 +64,37 @@ public class GameController : ControllerBase
         return game;
     }
 
-
+    /// <summary>
+    /// Creates a game.
+    /// </summary>
+    /// <param name="game">Game to create.</param>
+    /// <returns>Status 200 - ok.</returns>
     [HttpPost]
-    public void CreateGame(Game game)
+    public ActionResult CreateGame(Game game)
     {
         db.Games.Add(game);
         db.SaveChanges();
 
         logger.LogDebug("Game {game} was successfully created.", game);
+
+        return Ok();
+    }
+
+    [HttpPost("{name}")]
+    public ActionResult UpdateGame(Game game)
+    {
+        db.Update(game);
+        db.SaveChanges();
+
+        return Ok();
+    }
+
+    [HttpPost("{name}")]
+    public ActionResult DeleteGame(Game game)
+    {
+        db.Games.Remove(game);
+        db.SaveChanges();
+
+        return Ok();
     }
 }

@@ -106,4 +106,39 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         Assert.Contains(game, db.Games);
         Assert.Equal(expectedCount, db.Games.Count());
     }
+
+    [Fact]
+    public void UpdateGame_Correct_GamesShouldContainUpdatedGame()
+    {
+        // Arrange
+        using var db = Fixture.CreateContext();
+        var mockLogger = new Mock<ILogger<GameController>>();
+        var controller = new GameController(db, mockLogger.Object);
+
+        var game = db.Games.First();
+        game.Name = "UpdatedGame";
+
+        // Act
+        controller.UpdateGame(game);
+
+        // Assert
+        Assert.Contains(game, db.Games);
+    }
+
+    [Fact]
+    public void DeleteGame_Correct_GamesShouldNotContainDeletedGame()
+    {
+        // Arrange
+        using var db = Fixture.CreateContext();
+        var mockLogger = new Mock<ILogger<GameController>>();
+        var controller = new GameController(db, mockLogger.Object);
+
+        var game = db.Games.First();
+
+        // Act
+        controller.DeleteGame(game);
+
+        // Assert
+        Assert.DoesNotContain(game, db.Games);
+    }
 }
