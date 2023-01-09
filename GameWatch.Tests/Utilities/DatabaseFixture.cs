@@ -1,30 +1,8 @@
-using GameWatch.Backend.Controllers;
-using GameWatch.DataAccess;
+﻿using GameWatch.DataAccess;
 using GameWatch.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameWatch.Tests;
-
-public class UnitTests : IClassFixture<DatabaseFixture>
-{
-    public UnitTests(DatabaseFixture fixture)
-    {
-        Fixture = fixture;
-    }
-    public DatabaseFixture Fixture { get; }
-
-    [Fact]
-    public void Test1()
-    {
-        using var db = Fixture.CreateContext();
-        var controller = new GameController(db);
-
-        var game = controller.Get();
-
-        Assert.Equal("Game1", game.Name);
-    }
-}
-
+namespace GameWatch.Tests.Utilities;
 public class DatabaseFixture
 {
     private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=GameWatchTests;Trusted_Connection=True";
@@ -54,8 +32,7 @@ public class DatabaseFixture
         }
     }
 
-    public ApplicationContext CreateContext()
-        => new ApplicationContext(
+    public ApplicationContext CreateContext() => new ApplicationContext(
             new DbContextOptionsBuilder<ApplicationContext>()
                 .UseSqlServer(ConnectionString)
                 .Options);

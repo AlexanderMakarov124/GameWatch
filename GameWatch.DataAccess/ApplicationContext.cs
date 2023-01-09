@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using GameWatch.Domain.Entities;
+﻿using GameWatch.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameWatch.DataAccess;
