@@ -2,9 +2,23 @@
 
 <ul>
     <li *ngFor="let game of games">
-        <label>Name:</label>
-        <label> {{ game.name }} </label>
-        <label>Id:</label>
-        <label> {{ game.id }} </label>
+        <button type="button" (click)="onSelect(game)">
+            <label>Name:</label>
+            <label> {{ game.name }} </label>
+            <label>Id:</label>
+            <label> {{ game.id }} </label>
+        </button>
+        <button type="button" class="delete" title="delete game" (click)="delete(game)">Delete</button>
     </li>
 </ul>
+
+<app-game-detail [game]="selectedGame"></app-game-detail>
+
+<div>
+    <label for="new-game">Game name: </label>
+    <input id="new-game" #gameName />
+
+    <button type="button" class="add-button" (click)="add(gameName.value); gameName.value=''">
+        Create game
+    </button>
+</div>

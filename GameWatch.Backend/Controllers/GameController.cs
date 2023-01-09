@@ -85,7 +85,7 @@ public class GameController : ControllerBase
     /// </summary>
     /// <param name="game">Updated game.</param>
     /// <returns>Status 200 - ok.</returns>
-    [HttpPost("{name}")]
+    [HttpPut]
     public ActionResult UpdateGame(Game game)
     {
         db.Update(game);
@@ -99,11 +99,12 @@ public class GameController : ControllerBase
     /// <summary>
     /// Deletes game.
     /// </summary>
-    /// <param name="game">Game to delete.</param>
+    /// <param name="name">Name of the game to delete.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpDelete("{name}")]
-    public ActionResult DeleteGame(Game game)
+    public ActionResult DeleteGame(string name)
     {
+        var game = GetGameByName(name);
         db.Games.Remove(game);
         db.SaveChanges();
 
