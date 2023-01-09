@@ -3,18 +3,25 @@ using GameWatch.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameWatch.Tests.Utilities;
+
+/// <summary>
+/// Database fixture that imitates the database.
+/// </summary>
 public class DatabaseFixture
 {
     private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=GameWatchTests;Trusted_Connection=True";
 
-    private static readonly object _lock = new();
-    private static bool _databaseInitialized;
+    private static readonly object Lock = new();
+    private static bool databaseInitialized;
 
+    /// <summary>
+    /// Constructor that initializes the database.
+    /// </summary>
     public DatabaseFixture()
     {
-        lock (_lock)
+        lock (Lock)
         {
-            if (!_databaseInitialized)
+            if (!databaseInitialized)
             {
                 using (var context = CreateContext())
                 {
@@ -27,13 +34,18 @@ public class DatabaseFixture
                     context.SaveChanges();
                 }
 
-                _databaseInitialized = true;
+                databaseInitialized = true;
             }
         }
     }
 
-    public ApplicationContext CreateContext() => new ApplicationContext(
-            new DbContextOptionsBuilder<ApplicationContext>()
-                .UseSqlServer(ConnectionString)
-                .Options);
+    /// <summary>
+    /// Creates context.
+    /// </summary>
+    /// <returns>Context.</returns>
+    public ApplicationContext CreateContext() => new(
+        new DbContextOptionsBuilder<ApplicationContext>()
+            .UseSqlServer(ConnectionString)
+            .Options);
+
 }

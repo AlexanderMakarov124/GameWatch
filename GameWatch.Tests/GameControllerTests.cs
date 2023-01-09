@@ -9,17 +9,18 @@ namespace GameWatch.Tests;
 
 public class GameControllerTests : IClassFixture<DatabaseFixture>
 {
+    private readonly DatabaseFixture fixture;
+
     public GameControllerTests(DatabaseFixture fixture)
     {
-        Fixture = fixture;
+        this.fixture = fixture;
     }
-    public DatabaseFixture Fixture { get; }
 
     [Fact]
     public void GetAllGames_Correct_CountShouldBe2()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
@@ -36,7 +37,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     public void GetGameByName_Correct_Success()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
@@ -54,7 +55,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     public void GetGameByName_NameInDifferentCase_Success()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
@@ -72,7 +73,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     public void GetGameByName_GameDoesNotExist_ThrowNotFoundException()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
@@ -89,47 +90,61 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     public void CreateGame_Correct_GamesShouldContainNewGame()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
+        db.Database.BeginTransaction();
+
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
-        var game = new Game
+        var newGame = new Game
         {
             Name = "NewGame"
         };
-        const int expectedCount = 3;
+        const string expectedName = "NewGame";
 
         // Act
-        controller.CreateGame(game);
+        controller.CreateGame(newGame);
+
+        db.ChangeTracker.Clear();
 
         // Assert
-        Assert.Contains(game, db.Games);
-        Assert.Equal(expectedCount, db.Games.Count());
+        var game = db.Games.Single(g => g.Name.Equals(expectedName));
+
+        Assert.Equal(expectedName, game.Name);
     }
 
     [Fact]
     public void UpdateGame_Correct_GamesShouldContainUpdatedGame()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
+        db.Database.BeginTransaction();
+
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
-        var game = db.Games.First();
-        game.Name = "UpdatedGame";
+        var updatedGame = db.Games.First();
+        updatedGame.Name = "UpdatedGame";
+        const string expectedName = "UpdatedGame";
 
         // Act
-        controller.UpdateGame(game);
+        controller.UpdateGame(updatedGame);
+
+        db.ChangeTracker.Clear();
 
         // Assert
-        Assert.Contains(game, db.Games);
+        var game = db.Games.Single(g => g.Name.Equals(expectedName));
+
+        Assert.Equal(expectedName, game.Name);
     }
 
     [Fact]
     public void DeleteGame_Correct_GamesShouldNotContainDeletedGame()
     {
         // Arrange
-        using var db = Fixture.CreateContext();
+        using var db = fixture.CreateContext();
+        db.Database.BeginTransaction();
+
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
@@ -137,6 +152,8 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
 
         // Act
         controller.DeleteGame(game);
+
+        db.ChangeTracker.Clear();
 
         // Assert
         Assert.DoesNotContain(game, db.Games);

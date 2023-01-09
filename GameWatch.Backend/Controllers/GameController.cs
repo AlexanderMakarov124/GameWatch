@@ -80,6 +80,11 @@ public class GameController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Updates game.
+    /// </summary>
+    /// <param name="game">Updated game.</param>
+    /// <returns>Status 200 - ok.</returns>
     [HttpPost("{name}")]
     public ActionResult UpdateGame(Game game)
     {
@@ -89,6 +94,11 @@ public class GameController : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Deletes game.
+    /// </summary>
+    /// <param name="game">Game to delete.</param>
+    /// <returns>Status 200 - ok.</returns>
     [HttpDelete("{name}")]
     public ActionResult DeleteGame(Game game)
     {
