@@ -1,4 +1,5 @@
 using GameWatch.Backend.Controllers;
+using GameWatch.Domain.Entities;
 using GameWatch.Infrastructure.Common;
 using GameWatch.Tests.Utilities;
 using Microsoft.Extensions.Logging;
@@ -82,5 +83,27 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
 
         // Assert
         Assert.Throws<NotFoundException>(act);
+    }
+
+    [Fact]
+    public void CreateGame_Correct_GamesShouldContainNewGame()
+    {
+        // Arrange
+        using var db = Fixture.CreateContext();
+        var mockLogger = new Mock<ILogger<GameController>>();
+        var controller = new GameController(db, mockLogger.Object);
+
+        var game = new Game
+        {
+            Name = "NewGame"
+        };
+        const int expectedCount = 3;
+
+        // Act
+        controller.CreateGame(game);
+
+        // Assert
+        Assert.Contains(game, db.Games);
+        Assert.Equal(expectedCount, db.Games.Count());
     }
 }

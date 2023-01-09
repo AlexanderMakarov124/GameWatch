@@ -63,4 +63,14 @@ public class GameController : ControllerBase
 
         return game;
     }
+
+
+    [HttpPost]
+    public void CreateGame(Game game)
+    {
+        db.Games.Add(game);
+        db.SaveChanges();
+
+        logger.LogDebug("Game {game} was successfully created.", game);
+    }
 }
