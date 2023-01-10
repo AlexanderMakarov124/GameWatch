@@ -75,7 +75,7 @@ public class GameController : ControllerBase
         db.Games.Add(game);
         db.SaveChanges();
 
-        logger.LogDebug("Game {Game} was successfully created.", game);
+        logger.LogDebug("Game {Name} with id {Id} was successfully created.", game.Name, game.Id);
 
         return Ok();
     }
@@ -108,7 +108,7 @@ public class GameController : ControllerBase
         db.Games.Remove(game);
         db.SaveChanges();
 
-        logger.LogDebug("Game {Game} was successfully deleted.", game);
+        logger.LogDebug("Game {Name} with id {Id} was successfully deleted.", game.Name, game.Id);
 
         return Ok();
     }
