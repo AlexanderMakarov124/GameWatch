@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from './game.service'
 import { Game } from './game';
+import { filter, first, map, Observable, Subject, tap, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-games',
@@ -9,6 +10,8 @@ import { Game } from './game';
 })
 export class GamesComponent implements OnInit {
 
+  // games$: Observable<Game[]> | undefined;
+  // games$: Subject<Game[]> | undefined;
   games: Game[] = [];
   selectedGame?: Game;
 
@@ -23,20 +26,28 @@ export class GamesComponent implements OnInit {
   }
 
   getAllGames(): void {
-    this.gameService.getAllGames().subscribe(games => this.games = games);
+    this.gameService.getAllGames().subscribe(games => this.games = games)
+    // this.games$ = this.gameService.getAllGames().pipe();
   }
 
   add(name: string): void {
     name = name.trim();
     if (!name) { return; }
+
     this.gameService.createGame({ name } as Game)
       .subscribe(game => {
         this.games.push(game);
+
+        this.ngOnInit();
       });
+    // this.games$?.pipe()
   }
 
   delete(game: Game): void {
     this.games = this.games.filter(h => h !== game);
+    // this.games$?.pipe(
+    //   filter(h => h !== game)
+    // )
     this.gameService.deleteGame(game.name).subscribe();
   }
 

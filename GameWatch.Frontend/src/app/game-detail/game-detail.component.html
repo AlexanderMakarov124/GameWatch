@@ -2,8 +2,18 @@
     <h2>{{game.name | uppercase}} details</h2>
     <div><span>Id: {{game.id}}</span></div>
     <div>
-        <label for="name">Name: </label>
-        <input id="name" [(ngModel)]="game.name" placeholder="name">
+        <div>
+            <label for="name">Name: </label>
+            <input id="name" [(ngModel)]="game.name" placeholder="name">
+        </div>
+        <div>
+            <label for="genre">Genre: </label>
+            <input id="genre" [(ngModel)]="game.genre" placeholder="genre">
+        </div>
+        <div>
+            <label for="description">Description: </label>
+            <input id="description" [(ngModel)]="game.description" placeholder="description">
+        </div>
     </div>
-    <button type="button" (click)="save()">save</button>
+    <button type="button" (click)="save()">Save</button>
 </div>

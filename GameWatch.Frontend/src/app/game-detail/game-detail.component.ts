@@ -18,7 +18,7 @@ export class GameDetailComponent implements OnInit {
 
   save(): void {
     if (this.game) {
-      this.gameService.updateGame(this.game);
+      this.gameService.updateGame(this.game).subscribe();
     }
   }
 

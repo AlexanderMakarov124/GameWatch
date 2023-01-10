@@ -151,7 +151,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         var game = db.Games.First();
 
         // Act
-        controller.DeleteGame(game);
+        controller.DeleteGame(game.Name);
 
         db.ChangeTracker.Clear();
 
