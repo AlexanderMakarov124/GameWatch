@@ -28,9 +28,14 @@ public class DatabaseFixture
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
 
-                    context.AddRange(
-                        new Game { Name = "Game1" },
-                        new Game { Name = "Game2" });
+                    context.Database.ExecuteSqlRaw(
+                        "INSERT INTO Games (Name, Genre, Description, CreatedAt)" +
+                        "VALUES " +
+                        "('Starcraft 2', 'RTS', 'Best', GETDATE()), " +
+                        "('Warcraft 3', 'RTS', 'Best', GETDATE()), " +
+                        "('League of Legends', 'MOBA', 'Best MOBA', GETDATE()), " +
+                        "('Dota 2', 'MOBA', '....', GETDATE());");
+                    
                     context.SaveChanges();
                 }
 

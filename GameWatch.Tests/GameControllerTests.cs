@@ -24,7 +24,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
-        const int expectedCount = 2;
+        const int expectedCount = 4;
 
         // Act
         var games = controller.GetAllGames();
@@ -41,8 +41,8 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
-        const int expectedId = 1;
-        const string gameName = "Game1";
+        const int expectedId = 2;
+        const string gameName = "Warcraft 3";
 
         // Act
         var game = controller.GetGameByName(gameName);
@@ -59,8 +59,8 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
-        const int expectedId = 1;
-        const string gameName = "gAmE1";
+        const int expectedId = 2;
+        const string gameName = "warCRAFT 3";
 
         // Act
         var game = controller.GetGameByName(gameName);
@@ -98,7 +98,9 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
 
         var newGame = new Game
         {
-            Name = "NewGame"
+            Name = "NewGame",
+            Genre = "NewGenre",
+            CreatedAt = DateTime.Now
         };
         const string expectedName = "NewGame";
 
