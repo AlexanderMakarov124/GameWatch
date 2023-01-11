@@ -13,8 +13,7 @@
 <ul>
     <li *ngFor="let game of games">
         <div (click)="onSelect(game)">
-            <span class="badge">{{ game.id }} </span> {{ game.name }} {{game.genre}} {{game.description}}
-            {{game.createdAt}}
+            <span class="badge">{{ game.id }} </span> {{ game.name }} {{game.genre}} {{game.description}} {{game.createdAt | date:'shortDate'}}
             <button type="button" class="delete" title="delete game" (click)="delete(game)">Delete</button>
         </div>
     </li>
