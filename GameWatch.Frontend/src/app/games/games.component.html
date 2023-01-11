@@ -1,22 +1,40 @@
 <h1>Games</h1>
 
 <div>
-    <label for="new-game">Game name: </label>
-    <input id="new-game" #gameName />
+   <form [formGroup]="createGameForm" (ngSubmit)="create()">
+      <div>
+         <label for="name">Name: </label>
+         <input id="name" type="text" formControlName="name">
+      </div>
 
-    <button type="button" class="add-button" (click)="add(gameName.value); gameName.value=''">
-        Create game
-    </button>
+      <div>
+         <label for="genre">Genre: </label>
+         <input id="genre" type="text" formControlName="genre">
+      </div>
+
+      <div>
+         <label for="description">Description: </label>
+         <input id="description" type="text" formControlName="description">
+      </div>
+
+      <div>
+         <button type="submit" class="create-button" [disabled]="!createGameForm.valid">
+            Create game
+         </button>
+      </div>      
+   </form>
 </div>
 
-
 <ul>
-    <li *ngFor="let game of games">
-        <div (click)="onSelect(game)">
-            <span class="badge">{{ game.id }} </span> {{ game.name }} {{game.genre}} {{game.description}} {{game.createdAt | date:'shortDate'}}
-            <button type="button" class="delete" title="delete game" (click)="delete(game)">Delete</button>
-        </div>
-    </li>
+   <li *ngFor="let game of games">
+      <div (click)="onSelect(game)">
+         <span class="badge">{{game.id}}</span>
+         {{game.name}}
+         {{game.genre}}
+         {{game.createdAt | date:'shortDate'}}
+         <button type="button" class="delete" title="delete game" (click)="delete(game)">Delete</button>
+      </div>
+   </li>
 </ul>
 
 <app-game-detail [game]="selectedGame"></app-game-detail>
