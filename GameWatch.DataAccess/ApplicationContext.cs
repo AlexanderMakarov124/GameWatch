@@ -13,6 +13,7 @@ public class ApplicationContext : DbContext
     /// </summary>
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
     {
+        //Database.SetInitializer<ApplicationContext>(null);
     }
 
     /// <summary>

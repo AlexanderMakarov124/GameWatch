@@ -17,14 +17,14 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     }
 
     [Fact]
-    public void GetAllGames_Correct_CountShouldBe2()
+    public void GetAllGames_Correct_CountShouldBe5()
     {
         // Arrange
         using var db = fixture.CreateContext();
         var mockLogger = new Mock<ILogger<GameController>>();
         var controller = new GameController(db, mockLogger.Object);
 
-        const int expectedCount = 4;
+        const int expectedCount = 5;
 
         // Act
         var games = controller.GetAllGames();

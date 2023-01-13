@@ -1,6 +1,9 @@
-﻿using GameWatch.DataAccess;
-using GameWatch.Domain.Entities;
+﻿using System.Data;
+using System.Data.Common;
+using GameWatch.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace GameWatch.Tests.Utilities;
 
@@ -28,14 +31,28 @@ public class DatabaseFixture
                     context.Database.EnsureDeleted();
                     context.Database.EnsureCreated();
 
-                    context.Database.ExecuteSqlRaw(
-                        "INSERT INTO Games (Name, Genre, Description, CreatedAt)" +
-                        "VALUES " +
-                        "('Starcraft 2', 'RTS', 'Best', GETDATE()), " +
-                        "('Warcraft 3', 'RTS', 'Best', GETDATE()), " +
-                        "('League of Legends', 'MOBA', 'Best MOBA', GETDATE()), " +
-                        "('Dota 2', 'MOBA', '....', GETDATE());");
+                    const string queriesPath = "../../../../GameWatch.DataAccess/Queries";
+
+                    var sqlQueries = new List<string>
+                    {
+                        //File.ReadAllText($"{queriesPath}/CREATE/CreateGameLists.sql"),
+                        //File.ReadAllText($"{queriesPath}/CREATE/CreateGames.sql"),
+                        File.ReadAllText($"{queriesPath}/INSERT/InsertGameLists.sql"),
+                        File.ReadAllText($"{queriesPath}/INSERT/InsertGames.sql")
+                    };
                     
+                    foreach (var sql in sqlQueries)
+                    {
+                        context.Database.ExecuteSqlRaw(sql);
+                    }
+                    
+
+                    //context.Database.ExecuteSql($"EXECUTE CreateGameLists");
+                    //context.Database.ExecuteSql($"EXECUTE CreateGames");
+
+                    context.Database.ExecuteSql($"EXECUTE InsertGameLists");
+                    context.Database.ExecuteSql($"EXECUTE InsertGames");
+
                     context.SaveChanges();
                 }
 
