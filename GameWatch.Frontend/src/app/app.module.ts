@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { GamesComponent } from './games/games.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GamesComponent,
-    GameDetailComponent
+    GameDetailComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,

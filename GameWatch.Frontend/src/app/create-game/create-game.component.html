@@ -1,0 +1,24 @@
+<div>
+   <form [formGroup]="createGameForm" (ngSubmit)="create()">
+      <div>
+         <label for="name">Name: </label>
+         <input id="name" type="text" formControlName="name">
+      </div>
+
+      <div>
+         <label for="genre">Genre: </label>
+         <input id="genre" type="text" formControlName="genre">
+      </div>
+
+      <div>
+         <label for="description">Description: </label>
+         <input id="description" type="text" formControlName="description">
+      </div>
+
+      <div>
+         <button type="submit" class="create-button" [disabled]="!createGameForm.valid">
+            Create game
+         </button>
+      </div>      
+   </form>
+</div>
