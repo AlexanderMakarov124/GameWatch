@@ -1,3 +1,4 @@
+using GameWatch.Backend.MappingProfiles;
 using GameWatch.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using NLog.Web;
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServe
 
 builder.Logging.ClearProviders();
 builder.Host.UseNLog();
+
+builder.Services.AddAutoMapper(typeof(GameMappingProfile).Assembly);
 
 var app = builder.Build();
 

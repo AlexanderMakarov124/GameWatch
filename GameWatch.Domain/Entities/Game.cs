@@ -29,9 +29,4 @@ public class Game
     /// Date when the game was created.
     /// </summary>
     public DateTime CreatedAt { get; init; }
-
-    /// <summary>
-    /// The game belongs to this list.
-    /// </summary>
-    public GameList GameList { get; set; } = null!;
 }

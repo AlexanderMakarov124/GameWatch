@@ -5,10 +5,24 @@
 <a>Planned </a>
 <a>Planned with new PC </a>
 
+<div *ngFor="let gameList of gameLists">
+   <h2>{{gameList.name}}</h2>
+   <ul>
+      <li *ngFor="let game of gameList.games">
+         <div (click)="onSelect(game)">
+            {{game.name}}
+            {{game.genre}}
+            {{game.createdAt | date:'shortDate'}}
+            <button type="button" class="delete" title="delete game" (click)="delete(game)">Delete</button>
+         </div>
+      </li>
+   </ul>
+</div>
+
+
 <ul>
    <li *ngFor="let game of games">
       <div (click)="onSelect(game)">
-         <span class="badge">{{game.id}}</span>
          {{game.name}}
          {{game.genre}}
          {{game.createdAt | date:'shortDate'}}

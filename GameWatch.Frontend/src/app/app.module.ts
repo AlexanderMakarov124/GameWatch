@@ -9,13 +9,15 @@ import { GamesComponent } from './games/games.component';
 import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateGameComponent } from './create-game/create-game.component';
+import { CreateGameListComponent } from './create-game-list/create-game-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GamesComponent,
     GameDetailComponent,
-    CreateGameComponent
+    CreateGameComponent,
+    CreateGameListComponent
   ],
   imports: [
     BrowserModule,

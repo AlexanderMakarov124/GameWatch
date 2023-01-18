@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateGameListComponent } from './create-game-list/create-game-list.component';
 import { CreateGameComponent } from './create-game/create-game.component';
-import { GamesComponent } from './games/games.component';
 
 const routes: Routes = [
-  { path: 'create', component: CreateGameComponent }
+  { path: 'create/game', component: CreateGameComponent },
+  { path: 'create/gameList', component: CreateGameListComponent}
 ];
 
 @NgModule({

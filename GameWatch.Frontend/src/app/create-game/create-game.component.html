@@ -16,9 +16,19 @@
       </div>
 
       <div>
+         <label for="gameListName">Game list:</label>
+         <select id="gameListName" formControlName="gameListName">
+            <option value="">Choose game list</option>
+            <option *ngFor="let gameList of gameLists">
+               {{gameList.name}}
+            </option>
+         </select>
+      </div>
+
+      <div>
          <button type="submit" class="create-button" [disabled]="!createGameForm.valid">
             Create game
          </button>
-      </div>      
+      </div>
    </form>
 </div>

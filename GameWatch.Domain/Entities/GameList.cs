@@ -14,4 +14,9 @@ public class GameList
     /// Name of the list.
     /// </summary>
     public string Name { get; init; } = null!;
+
+    /// <summary>
+    /// Games related to the game list.
+    /// </summary>
+    public ICollection<Game> Games { get; init; } = null!;
 }

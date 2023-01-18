@@ -1,6 +1,9 @@
-﻿using GameWatch.DataAccess;
+﻿using System.Data.Common;
+using AutoMapper;
+using GameWatch.DataAccess;
 using GameWatch.Domain.Entities;
 using GameWatch.Infrastructure.Common;
+using GameWatch.UseCases.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameWatch.Backend.Controllers;
@@ -14,18 +17,20 @@ public class GameController : ControllerBase
 {
     private readonly ApplicationContext db;
     private readonly ILogger<GameController> logger;
+    private readonly IMapper mapper;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GameController(ApplicationContext db, ILogger<GameController> logger)
+    public GameController(ApplicationContext db, ILogger<GameController> logger, IMapper mapper)
     {
         this.db = db;
         this.logger = logger;
+        this.mapper = mapper;
     }
 
     /// <summary>
-    /// GET: Retrieves all games from database.
+    /// GET all games from database.
     /// </summary>
     /// <returns>All games.</returns>
     [HttpGet]
@@ -40,7 +45,7 @@ public class GameController : ControllerBase
     }
 
     /// <summary>
-    /// GET: Retrieve a game by name.
+    /// GET a game by name.
     /// </summary>
     /// <param name="name">Game's name.</param>
     /// <returns>A game.</returns>
@@ -52,11 +57,11 @@ public class GameController : ControllerBase
 
         if (game == null)
         {
-            var exception = new NotFoundException($"Game with name {name} does not exist.");
+            var message = $"Game with name {name} does not exist.";
 
-            var message = exception.Message;
+            var exception = new NotFoundException(message);
 
-            logger.Log(LogLevel.Error, message);
+            logger.Log(LogLevel.Error, message, exception);
 
             throw exception;
         }
@@ -65,23 +70,44 @@ public class GameController : ControllerBase
     }
 
     /// <summary>
-    /// Creates a game.
+    /// POST: Creates a game.
     /// </summary>
-    /// <param name="game">Game to create.</param>
+    /// <param name="gameDto">Game DTO.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpPost]
-    public ActionResult CreateGame(Game game)
+    public ActionResult CreateGame(GameDto gameDto)
     {
-        db.Games.Add(game);
+        var game = mapper.Map<Game>(gameDto);
+
+        var gameList = db.GameLists.FirstOrDefault(gl => gl.Name.ToLower().Equals(gameDto.GameListName.ToLower()));
+
+        if (gameList == null)
+        {
+            var message = $"Game list with name {gameDto.Name} does not exist.";
+
+            var exception = new NotFoundException(message);
+
+            logger.Log(LogLevel.Error, message, exception);
+
+            throw exception;
+        }
+
+        db.Entry(gameList).Collection(gl => gl.Games).Load();
+        gameList.Games.Add(game);
+
         db.SaveChanges();
 
-        logger.LogDebug("Game {Name} with id {Id} was successfully created.", game.Name, game.Id);
+        logger.LogDebug(
+            "Game {Name} with id {Id} was successfully created in game list {GameListName}.",
+            game.Name,
+            game.Id,
+            gameDto.GameListName);
 
         return Ok();
     }
 
     /// <summary>
-    /// Updates game.
+    /// PUT: Updates game.
     /// </summary>
     /// <param name="game">Updated game.</param>
     /// <returns>Status 200 - ok.</returns>
@@ -97,7 +123,7 @@ public class GameController : ControllerBase
     }
 
     /// <summary>
-    /// Deletes game.
+    /// DELETE: Deletes game.
     /// </summary>
     /// <param name="name">Name of the game to delete.</param>
     /// <returns>Status 200 - ok.</returns>
