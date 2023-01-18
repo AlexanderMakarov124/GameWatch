@@ -22,7 +22,7 @@ public class ApplicationContext : DbContext
     public DbSet<Game> Games { get; protected set; }
 
     /// <summary>
-    /// GameLists DB set;
+    /// GameLists DB set.
     /// </summary>
     public DbSet<GameList> GameLists { get; protected set; }
 }

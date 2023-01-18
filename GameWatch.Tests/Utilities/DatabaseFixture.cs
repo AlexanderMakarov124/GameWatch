@@ -12,7 +12,7 @@ namespace GameWatch.Tests.Utilities;
 /// </summary>
 public class DatabaseFixture
 {
-    private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=GameWatchTests;Trusted_Connection=True";
+    private const string ConnectionString = "Server=(localdb)\\mssqllocaldb;Database=GameWatchTests;Trusted_Connection=True;";
 
     private static readonly object Lock = new();
     private static bool databaseInitialized;
@@ -37,6 +37,7 @@ public class DatabaseFixture
                     {
                         //File.ReadAllText($"{queriesPath}/CREATE/CreateGameLists.sql"),
                         //File.ReadAllText($"{queriesPath}/CREATE/CreateGames.sql"),
+
                         File.ReadAllText($"{queriesPath}/INSERT/InsertGameLists.sql"),
                         File.ReadAllText($"{queriesPath}/INSERT/InsertGames.sql")
                     };
@@ -45,13 +46,13 @@ public class DatabaseFixture
                     {
                         context.Database.ExecuteSqlRaw(sql);
                     }
-                    
 
                     //context.Database.ExecuteSql($"EXECUTE CreateGameLists");
                     //context.Database.ExecuteSql($"EXECUTE CreateGames");
 
                     context.Database.ExecuteSql($"EXECUTE InsertGameLists");
                     context.Database.ExecuteSql($"EXECUTE InsertGames");
+
 
                     context.SaveChanges();
                 }

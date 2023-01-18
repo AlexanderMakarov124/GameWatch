@@ -100,7 +100,8 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         {
             Name = "NewGame",
             Genre = "NewGenre",
-            CreatedAt = DateTime.Now
+            CreatedAt = DateTime.Now,
+            GameList = db.GameLists.First()
         };
         const string expectedName = "NewGame";
 

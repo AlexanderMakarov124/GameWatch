@@ -8,7 +8,7 @@ namespace GameWatch.Backend.Controllers;
 /// List of games controller.
 /// </summary>
 [ApiController]
-[Route("api/lists")]
+[Route("api/gameLists")]
 public class GameListController : ControllerBase
 {
     private readonly ApplicationContext db;
