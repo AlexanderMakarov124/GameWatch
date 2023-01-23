@@ -19,16 +19,4 @@
    </ul>
 </div>
 
-
-<ul>
-   <li *ngFor="let game of games">
-      <div (click)="onSelect(game)">
-         {{game.name}}
-         {{game.genre}}
-         {{game.createdAt | date:'shortDate'}}
-         <button type="button" class="delete" title="delete game" (click)="delete(game)">Delete</button>
-      </div>
-   </li>
-</ul>
-
 <app-game-detail [game]="selectedGame"></app-game-detail>
