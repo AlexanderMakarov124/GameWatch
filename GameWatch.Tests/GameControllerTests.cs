@@ -100,7 +100,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
 
         var controller = new GameController(db, logger, mapper);
 
-        var newGame = new GameDto
+        var gameDto = new GameDto
         {
             Name = "NewGame",
             Genre = "NewGenre",
@@ -110,7 +110,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         const string expectedName = "NewGame";
 
         // Act
-        controller.CreateGame(newGame);
+        controller.CreateGame(gameDto);
 
         db.ChangeTracker.Clear();
 

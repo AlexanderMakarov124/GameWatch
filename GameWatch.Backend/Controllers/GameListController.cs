@@ -53,9 +53,7 @@ public class GameListController : ControllerBase
     [Produces("application/json")]
     public GameList GetGameListById(int id)
     {
-        var gameList = db.GameLists.First(gl => gl.Id == id);
-
-        db.Entry(gameList).Collection(gl => gl.Games).Load();
+        var gameList = db.GameLists.FirstOrDefault(gl => gl.Id == id);
 
         if (gameList == null)
         {
@@ -67,6 +65,8 @@ public class GameListController : ControllerBase
 
             throw exception;
         }
+
+        db.Entry(gameList).Collection(gl => gl.Games).Load();
 
         return gameList;
     }

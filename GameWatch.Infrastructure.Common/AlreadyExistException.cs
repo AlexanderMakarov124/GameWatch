@@ -1,14 +1,14 @@
 ﻿namespace GameWatch.Infrastructure.Common;
 
 /// <summary>
-/// Thrown when something does not exist.
+/// Thrown when something already exist.
 /// </summary>
-public class NotFoundException : Exception
+public class AlreadyExistException : Exception
 {
     /// <summary>
     /// Parameterless constructor.
     /// </summary>
-    public NotFoundException()
+    public AlreadyExistException()
     {
     }
 
@@ -16,7 +16,7 @@ public class NotFoundException : Exception
     /// Constructor with message.
     /// </summary>
     /// <param name="message">Message.</param>
-    public NotFoundException(string message) : base(message)
+    public AlreadyExistException(string message) : base(message)
     {
     }
 }

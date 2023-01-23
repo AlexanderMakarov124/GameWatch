@@ -13,7 +13,7 @@ public class GameList
     /// <summary>
     /// Name of the list.
     /// </summary>
-    public string Name { get; init; } = null!;
+    public string Name { get; set; } = null!;
 
     /// <summary>
     /// Games related to the game list.
