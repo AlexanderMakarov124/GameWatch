@@ -114,6 +114,14 @@ public class GameListController : ControllerBase
     public ActionResult DeleteGameList(int id)
     {
         var gameList = GetGameListById(id);
+
+        if (gameList.Games.Any())
+        {
+            foreach (var game in gameList.Games)
+            {
+                db.Games.Remove(game);
+            }
+        }
         db.GameLists.Remove(gameList);
         db.SaveChanges();
 

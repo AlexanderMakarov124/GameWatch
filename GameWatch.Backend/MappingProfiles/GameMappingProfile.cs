@@ -14,6 +14,6 @@ public class GameMappingProfile : Profile
     /// </summary>
     public GameMappingProfile()
     {
-        CreateMap<GameDto, Game>();
+        CreateMap<GameDto, Game>().ForMember(destination => destination.CreatedAt, options => options.MapFrom(date => DateTime.Now));
     }
 }

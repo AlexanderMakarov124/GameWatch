@@ -20,15 +20,13 @@ export class GameService {
    * GET all games from server.
    */
   getAllGames(): Observable<Game[]> {
-    return this.http
-      .get<Game[]>(this.gamesUrl)
-      .pipe(catchError(this.handleError<Game[]>('getAllGames', [])));
+    return this.http.get<Game[]>(this.gamesUrl).pipe(catchError(this.handleError<Game[]>('getAllGames', [])));
   }
 
   /**
    * GET a game by name.
    *
-   * @param name Game name.
+   * @param name - Game name.
    * @returns Game.
    */
   getGameByName(name: string): Observable<Game> {
@@ -42,7 +40,7 @@ export class GameService {
   /**
    * POST: Creates the game.
    *
-   * @param game Game to create.
+   * @param game - Game to create.
    */
   createGame(game: Game): Observable<Game> {
     return this.http
@@ -53,7 +51,7 @@ export class GameService {
   /**
    * PUT: Updates the game on the server.
    *
-   * @param game Game to update.
+   * @param game - Game to update.
    */
   updateGame(game: Game): Observable<any> {
     return this.http
@@ -64,7 +62,7 @@ export class GameService {
   /**
    *  DELETE: delete the hero from the server
    *
-   *  @param name Name of the game to delete.
+   *  @param name - Name of the game to delete.
    */
   deleteGame(name: string): Observable<Game> {
     const url = `${this.gamesUrl}/${name}`;
@@ -78,8 +76,8 @@ export class GameService {
    * Handle Http operation that failed.
    * Let the app continue.
    *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
+   * @param operation - Name of the operation that failed
+   * @param result - Optional value to return as the observable result
    */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

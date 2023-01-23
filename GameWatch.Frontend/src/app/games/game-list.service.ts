@@ -22,4 +22,14 @@ export class GameListService {
   createGameList(gameList: GameList): Observable<GameList> {
     return this.http.post<GameList>(this.gameListsUrl, gameList, this.httpOptions);
   }
+
+  updateGameList(gameList: GameList): Observable<any> {
+    return this.http.put(this.gameListsUrl, gameList, this.httpOptions);
+  }
+
+  deleteGameList(id: number): Observable<GameList> {
+    const url = `${this.gameListsUrl}/${id}`;
+
+    return this.http.delete<GameList>(url, this.httpOptions);
+  }
 }

@@ -10,6 +10,7 @@ import { GameDetailComponent } from './game-detail/game-detail.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { CreateGameListComponent } from './create-game-list/create-game-list.component';
+import { GameListDetailComponent } from './game-list-detail/game-list-detail.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CreateGameListComponent } from './create-game-list/create-game-list.com
     GamesComponent,
     GameDetailComponent,
     CreateGameComponent,
-    CreateGameListComponent
+    CreateGameListComponent,
+    GameListDetailComponent
   ],
   imports: [
     BrowserModule,

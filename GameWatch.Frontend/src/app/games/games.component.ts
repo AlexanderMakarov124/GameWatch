@@ -14,9 +14,8 @@ export class GamesComponent implements OnInit {
   // games$: Observable<Game[]> | undefined;
   // games$: Subject<Game[]> | undefined;
 
-  games: Game[] = [];
   gameLists: GameList[] = [];
-  selectedGame?: Game;
+  selectedGameList?: GameList;
 
   constructor(
     private gameService: GameService,
@@ -24,17 +23,11 @@ export class GamesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllGames();
     this.getAllGameLists();
   }
 
-  onSelect(game: Game): void {
-    this.selectedGame = game;
-  }
-
-  getAllGames(): void {
-    this.gameService.getAllGames().subscribe(games => (this.games = games));
-    // this.games$ = this.gameService.getAllGames().pipe();
+  onSelect(gameList: GameList): void {
+    this.selectedGameList = gameList;
   }
 
   getAllGameLists(): void {
@@ -43,11 +36,11 @@ export class GamesComponent implements OnInit {
       .subscribe(gameLists => (this.gameLists = gameLists));
   }
 
-  delete(game: Game): void {
-    this.games = this.games.filter(h => h !== game);
+  deleteGameList(gameList: GameList): void {
+    this.gameLists = this.gameLists.filter(h => h !== gameList);
     // this.games$?.pipe(
     //   filter(h => h !== game)
     // )
-    this.gameService.deleteGame(game.name).subscribe();
+    this.gameListService.deleteGameList(gameList.id).subscribe();
   }
 }

@@ -83,7 +83,7 @@ public class GameController : ControllerBase
 
         if (gameList == null)
         {
-            var message = $"Game list with name {gameDto.Name} does not exist.";
+            var message = $"Game list with name {gameDto.GameListName} does not exist.";
 
             var exception = new NotFoundException(message);
 
