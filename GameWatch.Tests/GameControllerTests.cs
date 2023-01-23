@@ -1,7 +1,10 @@
+using AutoMapper;
 using GameWatch.Backend.Controllers;
+using GameWatch.Backend.MappingProfiles;
 using GameWatch.Domain.Entities;
 using GameWatch.Infrastructure.Common;
 using GameWatch.Tests.Utilities;
+using GameWatch.UseCases.DTOs;
 using Microsoft.Extensions.Logging;
 using Moq;
 
@@ -10,10 +13,16 @@ namespace GameWatch.Tests;
 public class GameControllerTests : IClassFixture<DatabaseFixture>
 {
     private readonly DatabaseFixture fixture;
+    private readonly ILogger<GameController> logger;
+    private readonly IMapper mapper;
 
     public GameControllerTests(DatabaseFixture fixture)
     {
         this.fixture = fixture;
+        logger = new Mock<ILogger<GameController>>().Object;
+
+        var config = new MapperConfiguration(conf => conf.AddProfile(new GameMappingProfile()));
+        mapper = config.CreateMapper();
     }
 
     [Fact]
@@ -21,8 +30,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     {
         // Arrange
         using var db = fixture.CreateContext();
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
         const int expectedCount = 5;
 
@@ -38,8 +46,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     {
         // Arrange
         using var db = fixture.CreateContext();
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
         const int expectedId = 2;
         const string gameName = "Warcraft 3";
@@ -56,8 +63,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     {
         // Arrange
         using var db = fixture.CreateContext();
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
         const int expectedId = 2;
         const string gameName = "warCRAFT 3";
@@ -74,8 +80,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
     {
         // Arrange
         using var db = fixture.CreateContext();
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
         const string gameName = "GameThatDoesNotExist";
 
@@ -93,15 +98,15 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         using var db = fixture.CreateContext();
         db.Database.BeginTransaction();
 
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
-        var newGame = new Game
+        var newGame = new GameDto
         {
             Name = "NewGame",
             Genre = "NewGenre",
-            CreatedAt = DateTime.Now,
+            GameListName = "Planned"
         };
+        const string expectedGameList = "Planned";
         const string expectedName = "NewGame";
 
         // Act
@@ -110,7 +115,12 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         db.ChangeTracker.Clear();
 
         // Assert
-        var game = db.Games.Single(g => g.Name.Equals(expectedName));
+
+        var gameList = db.GameLists.Single(gl => gl.Name.ToLower().Equals(expectedGameList));
+
+        db.Entry(gameList).Collection(gl => gl.Games).Load();
+
+        var game = gameList.Games.Single(g => g.Name.Equals(expectedName));
 
         Assert.Equal(expectedName, game.Name);
     }
@@ -122,8 +132,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         using var db = fixture.CreateContext();
         db.Database.BeginTransaction();
 
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
         var updatedGame = db.Games.First();
         updatedGame.Name = "UpdatedGame";
@@ -147,8 +156,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         using var db = fixture.CreateContext();
         db.Database.BeginTransaction();
 
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameController(db, mockLogger.Object);
+        var controller = new GameController(db, logger, mapper);
 
         var game = db.Games.First();
 

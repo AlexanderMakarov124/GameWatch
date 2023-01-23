@@ -1,4 +1,6 @@
-﻿using GameWatch.Backend.Controllers;
+﻿using AutoMapper;
+using GameWatch.Backend.Controllers;
+using GameWatch.Backend.MappingProfiles;
 using GameWatch.Tests.Utilities;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -7,10 +9,17 @@ namespace GameWatch.Tests;
 public class GameListControllerTests : IClassFixture<DatabaseFixture>
 {
     private readonly DatabaseFixture fixture;
+    private readonly ILogger<GameListController> logger;
+    private readonly IMapper mapper;
 
     public GameListControllerTests(DatabaseFixture fixture)
     {
         this.fixture = fixture;
+        logger = new Mock<ILogger<GameListController>>().Object;
+
+        var config = new MapperConfiguration(conf => conf.AddProfile(new GameListMappingProfile()));
+        mapper = config.CreateMapper();
+
     }
 
     [Fact]
@@ -18,8 +27,7 @@ public class GameListControllerTests : IClassFixture<DatabaseFixture>
     {
         // Arrange
         using var db = fixture.CreateContext();
-        var mockLogger = new Mock<ILogger<GameController>>();
-        var controller = new GameListController(db, mockLogger.Object);
+        var controller = new GameListController(db, logger, mapper);
 
         const int expectedCount = 3;
 

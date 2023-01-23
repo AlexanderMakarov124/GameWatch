@@ -16,13 +16,13 @@ namespace GameWatch.Backend.Controllers;
 public class GameListController : ControllerBase
 {
     private readonly ApplicationContext db;
-    private readonly ILogger<GameController> logger;
+    private readonly ILogger<GameListController> logger;
     private readonly IMapper mapper;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GameListController(ApplicationContext db, ILogger<GameController> logger, IMapper mapper)
+    public GameListController(ApplicationContext db, ILogger<GameListController> logger, IMapper mapper)
     {
         this.db = db;
         this.logger = logger;
