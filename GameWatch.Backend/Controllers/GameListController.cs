@@ -79,6 +79,17 @@ public class GameListController : ControllerBase
     [HttpPost]
     public IActionResult CreateGameList(GameListDto gameListDto)
     {
+        if (db.GameLists.Any(gl => gl.Name.ToLower().Equals(gameListDto.Name.ToLower())))
+        {
+            var message = $"Can not create game list {gameListDto.Name} because game list with such name already exists.";
+
+            var exception = new AlreadyExistException(message);
+
+            logger.LogError(message, exception);
+
+            throw exception;
+        }
+
         var gameList = mapper.Map<GameList>(gameListDto);
 
         db.GameLists.Add(gameList);
@@ -97,6 +108,17 @@ public class GameListController : ControllerBase
     [HttpPut]
     public ActionResult UpdateGameList(GameList gameList)
     {
+        if (db.GameLists.Any(gl => gl.Name.ToLower().Equals(gameList.Name.ToLower())))
+        {
+            var message = $"Can not update game list {gameList.Name} because game list with such name already exists.";
+
+            var exception = new AlreadyExistException(message);
+
+            logger.LogError(message, exception);
+
+            throw exception;
+        }
+
         db.Update(gameList);
         db.SaveChanges();
 
