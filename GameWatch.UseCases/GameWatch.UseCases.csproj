@@ -7,7 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
+    <PackageReference Include="NLog" Version="5.1.1" />
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.435">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GameWatch.DataAccess\GameWatch.DataAccess.csproj" />
     <ProjectReference Include="..\GameWatch.Domain\GameWatch.Domain.csproj" />
+    <ProjectReference Include="..\GameWatch.Infrastructure.Common\GameWatch.Infrastructure.Common.csproj" />
   </ItemGroup>
 
 </Project>

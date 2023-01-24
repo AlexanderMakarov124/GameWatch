@@ -1,10 +1,13 @@
-﻿using AutoMapper;
-using GameWatch.DataAccess;
-using GameWatch.Domain.Entities;
-using GameWatch.Infrastructure.Common;
+﻿using GameWatch.Domain.Entities;
+using GameWatch.Infrastructure.Common.Exceptions;
 using GameWatch.UseCases.DTOs;
+using GameWatch.UseCases.GameLists.CreateGameList;
+using GameWatch.UseCases.GameLists.DeleteGameList;
+using GameWatch.UseCases.GameLists.GetAllGameLists;
+using GameWatch.UseCases.GameLists.GetGameListById;
+using GameWatch.UseCases.GameLists.UpdateGameList;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace GameWatch.Backend.Controllers;
 
@@ -15,58 +18,55 @@ namespace GameWatch.Backend.Controllers;
 [Route("api/gameLists")]
 public class GameListController : ControllerBase
 {
-    private readonly ApplicationContext db;
-    private readonly ILogger<GameListController> logger;
-    private readonly IMapper mapper;
+    private readonly IMediator mediator;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public GameListController(ApplicationContext db, ILogger<GameListController> logger, IMapper mapper)
+    public GameListController(IMediator mediator)
     {
-        this.db = db;
-        this.logger = logger;
-        this.mapper = mapper;
+        this.mediator = mediator;
     }
 
     /// <summary>
     /// GET all game lists.
     /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Game lists.</returns>
     [HttpGet]
     [Produces("application/json")]
-    public IEnumerable<GameList> GetAllGameLists()
+    public async Task<IEnumerable<GameList>> GetAllGameLists(CancellationToken cancellationToken)
     {
-        var lists = db.GameLists.Include(gl => gl.Games);
+        var gameLists = await mediator.Send(new GetAllGameListsQuery(), cancellationToken);
 
-        logger.Log(LogLevel.Debug, "All game lists was successfully retrieved.");
-
-        return lists;
+        return gameLists;
     }
 
     /// <summary>
     /// GET game list by id.
     /// </summary>
     /// <param name="id">Given id.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Game list.</returns>
     [HttpGet("{id}")]
     [Produces("application/json")]
-    public GameList GetGameListById(int id)
+    public async Task<GameList> GetGameListById(int id, CancellationToken cancellationToken)
     {
-        var gameList = db.GameLists.FirstOrDefault(gl => gl.Id == id);
-
-        if (gameList == null)
+        var query = new GetGameListByIdQuery
         {
-            var message = $"Game list with id {id} does not exist.";
+            Id = id
+        };
 
-            var exception = new NotFoundException(message);
+        GameList gameList;
 
-            logger.Log(LogLevel.Error, message);
-
-            throw exception;
+        try
+        {
+            gameList = await mediator.Send(query, cancellationToken);
         }
-
-        db.Entry(gameList).Collection(gl => gl.Games).Load();
+        catch (NotFoundException)
+        {
+            return null;
+        }
 
         return gameList;
     }
@@ -75,27 +75,24 @@ public class GameListController : ControllerBase
     /// POST: Creates game list.
     /// </summary>
     /// <param name="gameListDto">Game list DTO.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpPost]
-    public IActionResult CreateGameList(GameListDto gameListDto)
+    public async Task<IActionResult> CreateGameList(GameListDto gameListDto, CancellationToken cancellationToken)
     {
-        if (db.GameLists.Any(gl => gl.Name.ToLower().Equals(gameListDto.Name.ToLower())))
+        var command = new CreateGameListCommand
         {
-            var message = $"Can not create game list {gameListDto.Name} because game list with such name already exists.";
+            GameListDto = gameListDto
+        };
 
-            var exception = new AlreadyExistException(message);
-
-            logger.LogError(message, exception);
-
-            throw exception;
+        try
+        {
+            await mediator.Send(command, cancellationToken);
         }
-
-        var gameList = mapper.Map<GameList>(gameListDto);
-
-        db.GameLists.Add(gameList);
-        db.SaveChanges();
-
-        logger.LogDebug("Game list {Name} with id {Id} was successfully created.", gameList.Name, gameList.Id);
+        catch (AlreadyExistException)
+        {
+            return BadRequest();
+        }
 
         return Ok();
     }
@@ -104,25 +101,24 @@ public class GameListController : ControllerBase
     /// PUT: Updates game list.
     /// </summary>
     /// <param name="gameList">Updated game list.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpPut]
-    public ActionResult UpdateGameList(GameList gameList)
+    public async Task<IActionResult> UpdateGameList(GameList gameList, CancellationToken cancellationToken)
     {
-        if (db.GameLists.Any(gl => gl.Name.ToLower().Equals(gameList.Name.ToLower())))
+        var command = new UpdateGameListCommand
         {
-            var message = $"Can not update game list {gameList.Name} because game list with such name already exists.";
+            GameList = gameList
+        };
 
-            var exception = new AlreadyExistException(message);
-
-            logger.LogError(message, exception);
-
-            throw exception;
+        try
+        {
+            await mediator.Send(command, cancellationToken);
         }
-
-        db.Update(gameList);
-        db.SaveChanges();
-
-        logger.LogDebug("Game list with id {Id} was successfully updated.", gameList.Id);
+        catch (AlreadyExistException)
+        {
+            return BadRequest();
+        }
 
         return Ok();
     }
@@ -131,23 +127,17 @@ public class GameListController : ControllerBase
     /// DELETE: Deletes game list.
     /// </summary>
     /// <param name="id">Name of the game list to delete.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpDelete("{id}")]
-    public ActionResult DeleteGameList(int id)
+    public async Task<IActionResult> DeleteGameList(int id, CancellationToken cancellationToken)
     {
-        var gameList = GetGameListById(id);
-
-        if (gameList.Games.Any())
+        var command = new DeleteGameListCommand
         {
-            foreach (var game in gameList.Games)
-            {
-                db.Games.Remove(game);
-            }
-        }
-        db.GameLists.Remove(gameList);
-        db.SaveChanges();
+            Id = id
+        };
 
-        logger.LogDebug("Game list {Name} with id {Id} was successfully deleted.", gameList.Name, gameList.Id);
+        await mediator.Send(command, cancellationToken);
 
         return Ok();
     }

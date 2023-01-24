@@ -1,9 +1,5 @@
-﻿using System.Data;
-using System.Data.Common;
-using GameWatch.DataAccess;
+﻿using GameWatch.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace GameWatch.Tests.Utilities;
 

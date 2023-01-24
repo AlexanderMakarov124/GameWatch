@@ -1,8 +1,7 @@
 using AutoMapper;
 using GameWatch.Backend.Controllers;
 using GameWatch.Backend.MappingProfiles;
-using GameWatch.Domain.Entities;
-using GameWatch.Infrastructure.Common;
+using GameWatch.Infrastructure.Common.Exceptions;
 using GameWatch.Tests.Utilities;
 using GameWatch.UseCases.DTOs;
 using Microsoft.Extensions.Logging;
@@ -110,7 +109,7 @@ public class GameControllerTests : IClassFixture<DatabaseFixture>
         const string expectedName = "NewGame";
 
         // Act
-        controller.CreateGame(gameDto);
+        controller.CreateGameAsync(gameDto);
 
         db.ChangeTracker.Clear();
 
