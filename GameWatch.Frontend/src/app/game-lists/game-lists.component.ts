@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from './game.service';
-import { Game } from './game';
-import { filter, first, map, Observable, Subject, tap, toArray } from 'rxjs';
-import { GameList } from './gameList';
-import { GameListService } from './game-list.service';
+import { GameListService } from './shared/game-list.service';
+import { GameList } from './shared/game-list.model';
 
 @Component({
   selector: 'app-game-lists',
@@ -17,7 +14,7 @@ export class GameListsComponent implements OnInit {
   gameLists: GameList[] = [];
   selectedGameList?: GameList;
 
-  constructor(private gameService: GameService, private gameListService: GameListService) {}
+  constructor(private gameListService: GameListService) {}
 
   ngOnInit(): void {
     this.getAllGameLists();

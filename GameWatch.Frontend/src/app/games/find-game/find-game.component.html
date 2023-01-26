@@ -1,0 +1,10 @@
+<h2>Find game</h2>
+
+<form [formGroup]="findForm" (ngSubmit)="getGamesByName()" >
+    <label for="name">Name</label>
+    <input id="name" type="text" formControlName="name"/>
+    
+    <button type="submit" [disabled]="!findForm.valid">Find</button>
+</form>
+
+<app-games [games]="games" ></app-games>

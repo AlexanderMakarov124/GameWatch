@@ -1,6 +1,6 @@
 <h2>Games</h2>
-<div>
-    <ul>
+<div *ngIf="games?.length; else empty">
+    <ul >
         <li *ngFor="let game of games">
             <div (click)="onSelect(game)">
                 {{game.name}}
@@ -12,5 +12,9 @@
         </li>
     </ul>
 </div>
+
+<ng-template #empty>
+    The game list is empty.
+</ng-template>
 
 <app-game-detail [game]="selectedGame"></app-game-detail>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 
-import { Game } from './game';
+import { Game } from './game.model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,9 +34,8 @@ export class GameService {
    * @returns Games.
    */
   getGamesByName(name: string): Observable<Game[]> {
-    const url = `${this.gamesUrl}/${name}`;
-
-    return this.http
+      const url = `${this.gamesUrl}/${name}`;      
+      return this.http
       .get<Game[]>(url)
       .pipe(catchError(this.handleError<Game[]>(`getGamesByName name=${name}`)));
   }

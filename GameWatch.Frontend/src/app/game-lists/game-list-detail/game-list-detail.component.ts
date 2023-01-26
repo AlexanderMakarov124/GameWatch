@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Game } from '../game-lists/game';
-import { GameListService } from '../game-lists/game-list.service';
-import { GameService } from '../game-lists/game.service';
-import { GameList } from '../game-lists/gameList';
+import { GameListService } from '../shared/game-list.service';
+import { GameList } from '../shared/game-list.model';
+import { GameService } from 'src/app/games/shared/game.service';
 
 @Component({
   selector: 'app-game-list-detail',
@@ -12,17 +11,13 @@ import { GameList } from '../game-lists/gameList';
 export class GameListDetailComponent implements OnInit {
   @Input() gameList?: GameList;
 
-
-
   constructor(private gameService: GameService, private gameListService: GameListService) {}
 
-  ngOnInit(): void {}  
+  ngOnInit(): void {}
 
   save(): void {
     if (this.gameList) {
       this.gameListService.updateGameList(this.gameList).subscribe();
     }
   }
-
-  
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GameList } from './gameList';
+import { GameList } from './game-list.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,8 @@ export class GameListService {
 
   constructor(private http: HttpClient) {}
 
-  getAllGameLists(): Observable<GameList[]> {
+    getAllGameLists(): Observable<GameList[]> {
+      
     return this.http.get<GameList[]>(this.gameListsUrl);
   }
 
@@ -23,7 +24,7 @@ export class GameListService {
     return this.http.post<GameList>(this.gameListsUrl, gameList, this.httpOptions);
   }
 
-  updateGameList(gameList: GameList): Observable<any> {
+  updateGameList(gameList: GameList): Observable<unknown> {
     return this.http.put(this.gameListsUrl, gameList, this.httpOptions);
   }
 

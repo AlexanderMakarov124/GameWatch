@@ -1,4 +1,4 @@
-import { Game } from './game';
+import { Game } from 'src/app/games/shared/game.model';
 
 export interface GameList {
   id: number;

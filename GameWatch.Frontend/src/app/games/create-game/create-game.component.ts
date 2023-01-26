@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game-lists/game.service';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Game } from '../game-lists/game';
-import { GameList } from '../game-lists/gameList';
-import { GameListService } from '../game-lists/game-list.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { GameList } from 'src/app/game-lists/shared/game-list.model';
+import { GameListService } from 'src/app/game-lists/shared/game-list.service';
+import { Game } from '../shared/game.model';
+import { GameService } from '../shared/game.service';
 
 @Component({
   selector: 'app-create-game',

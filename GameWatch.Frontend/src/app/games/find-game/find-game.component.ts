@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Game } from '../game-lists/game';
-import { GameService } from '../game-lists/game.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Game } from '../shared/game.model';
+import { GameService } from '../shared/game.service';
 
 @Component({
   selector: 'app-find-game',
@@ -12,7 +12,7 @@ export class FindGameComponent implements OnInit {
   games: Game[] = [];
 
   findForm = this.formBuilder.group({
-    name: ['', Validators.required]
+    name: ['', Validators.required],
   });
 
   constructor(private gameService: GameService, private formBuilder: FormBuilder) {}
