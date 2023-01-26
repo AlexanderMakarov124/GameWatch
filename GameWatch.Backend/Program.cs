@@ -1,9 +1,11 @@
+using System.Reflection;
 using GameWatch.Backend.Behaviors;
 using GameWatch.Backend.MappingProfiles;
 using GameWatch.DataAccess;
 using GameWatch.UseCases.Games.CreateGame;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 
@@ -12,15 +14,22 @@ logger.Debug("Init main");
 
 try
 {
-
     var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
-
     builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "1.0",
+            Title = "Game Watch API"
+        });
+
+        var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+    });
 
     var connection = builder.Configuration.GetConnectionString("DefaultConnection");
     builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
@@ -36,7 +45,6 @@ try
 
     var app = builder.Build();
 
-    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
@@ -54,6 +62,7 @@ try
 catch (Exception exception)
 {
     logger.Error(exception, "Stopped program because of exception");
+
     throw;
 }
 finally
