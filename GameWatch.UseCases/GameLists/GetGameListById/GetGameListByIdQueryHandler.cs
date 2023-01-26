@@ -10,7 +10,7 @@ namespace GameWatch.UseCases.GameLists.GetGameListById;
 /// <summary>
 /// Handler for get game list by id query.
 /// </summary>
-internal class GetGameListByIdQueryHandler : IRequestHandler<GetGameListByIdQuery, GameList>
+public class GetGameListByIdQueryHandler : IRequestHandler<GetGameListByIdQuery, GameList>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<GetGameListByIdQueryHandler> logger;

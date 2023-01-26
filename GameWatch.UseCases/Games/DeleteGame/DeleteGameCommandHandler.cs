@@ -8,7 +8,7 @@ namespace GameWatch.UseCases.Games.DeleteGame;
 /// <summary>
 /// Handler to delete game command.
 /// </summary>
-internal class DeleteGameCommandHandler : AsyncRequestHandler<DeleteGameCommand>
+public class DeleteGameCommandHandler : IRequestHandler<DeleteGameCommand, Unit>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<DeleteGameCommandHandler> logger;
@@ -23,7 +23,7 @@ internal class DeleteGameCommandHandler : AsyncRequestHandler<DeleteGameCommand>
     }
 
     /// <inheritdoc />
-    protected override async Task Handle(DeleteGameCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteGameCommand request, CancellationToken cancellationToken)
     {
         var game = await db.Games.FirstAsync(g => g.Name.ToLower().Equals(request.Name.ToLower()), cancellationToken);
 
@@ -31,5 +31,7 @@ internal class DeleteGameCommandHandler : AsyncRequestHandler<DeleteGameCommand>
         await db.SaveChangesAsync(cancellationToken);
 
         logger.LogDebug("Game {Name} with id {Id} was successfully deleted.", game.Name, game.Id);
+
+        return default;
     }
 }

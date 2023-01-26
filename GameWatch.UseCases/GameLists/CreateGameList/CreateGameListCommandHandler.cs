@@ -11,7 +11,7 @@ namespace GameWatch.UseCases.GameLists.CreateGameList;
 /// <summary>
 /// Handler to create game list command.
 /// </summary>
-internal class CreateGameListCommandHandler : AsyncRequestHandler<CreateGameListCommand>
+public class CreateGameListCommandHandler : IRequestHandler<CreateGameListCommand, Unit>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<CreateGameListCommandHandler> logger;
@@ -28,7 +28,7 @@ internal class CreateGameListCommandHandler : AsyncRequestHandler<CreateGameList
     }
 
     /// <inheritdoc />
-    protected override async Task Handle(CreateGameListCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(CreateGameListCommand request, CancellationToken cancellationToken)
     {
         var gameListDto = request.GameListDto;
 
@@ -48,5 +48,7 @@ internal class CreateGameListCommandHandler : AsyncRequestHandler<CreateGameList
         await db.SaveChangesAsync(cancellationToken);
 
         logger.LogDebug("Game list {Name} with id {Id} was successfully created.", gameList.Name, gameList.Id);
+
+        return default;
     }
 }

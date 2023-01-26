@@ -1,3 +1,4 @@
+using GameWatch.Backend.Behaviors;
 using GameWatch.Backend.MappingProfiles;
 using GameWatch.DataAccess;
 using GameWatch.UseCases.Games.CreateGame;
@@ -7,7 +8,7 @@ using NLog;
 using NLog.Web;
 
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-logger.Debug("init main");
+logger.Debug("Init main");
 
 try
 {
@@ -27,9 +28,11 @@ try
     builder.Logging.ClearProviders();
     builder.Host.UseNLog();
 
-    builder.Services.AddAutoMapper(typeof(GameMappingProfile).Assembly);
+    builder.Services.AddAutoMapper(typeof(GameMappingProfile));
 
     builder.Services.AddMediatR(typeof(CreateGameCommand));
+
+    builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
     var app = builder.Build();
 

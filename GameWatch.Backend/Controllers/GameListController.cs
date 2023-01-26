@@ -32,14 +32,14 @@ public class GameListController : ControllerBase
     /// GET all game lists.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>Game lists.</returns>
+    /// <returns>Ok result with game lists.</returns>
     [HttpGet]
     [Produces("application/json")]
-    public async Task<IEnumerable<GameList>> GetAllGameLists(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetAllGameLists(CancellationToken cancellationToken)
     {
         var gameLists = await mediator.Send(new GetAllGameListsQuery(), cancellationToken);
 
-        return gameLists;
+        return Ok(gameLists);
     }
 
     /// <summary>
@@ -47,10 +47,10 @@ public class GameListController : ControllerBase
     /// </summary>
     /// <param name="id">Given id.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>Game list.</returns>
+    /// <returns>Ok result with game list.</returns>
     [HttpGet("{id}")]
     [Produces("application/json")]
-    public async Task<GameList> GetGameListById(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetGameListById(int id, CancellationToken cancellationToken)
     {
         var query = new GetGameListByIdQuery
         {
@@ -65,10 +65,10 @@ public class GameListController : ControllerBase
         }
         catch (NotFoundException)
         {
-            return null;
+            return BadRequest();
         }
 
-        return gameList;
+        return Ok(gameList);
     }
 
     /// <summary>
@@ -94,7 +94,7 @@ public class GameListController : ControllerBase
             return BadRequest();
         }
 
-        return Ok();
+        return StatusCode(201);
     }
 
     /// <summary>

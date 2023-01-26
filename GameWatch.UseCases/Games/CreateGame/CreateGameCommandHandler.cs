@@ -11,7 +11,7 @@ namespace GameWatch.UseCases.Games.CreateGame;
 /// <summary>
 /// Handler to create game command.
 /// </summary>
-internal class CreateGameCommandHandler : AsyncRequestHandler<CreateGameCommand>
+public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<CreateGameCommandHandler> logger;
@@ -28,7 +28,7 @@ internal class CreateGameCommandHandler : AsyncRequestHandler<CreateGameCommand>
     }
 
     /// <inheritdoc />
-    protected override async Task Handle(CreateGameCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(CreateGameCommand request, CancellationToken cancellationToken)
     {
         var gameDto = request.GameDto;
 
@@ -54,5 +54,7 @@ internal class CreateGameCommandHandler : AsyncRequestHandler<CreateGameCommand>
             game.Name,
             game.Id,
             gameDto.GameListName);
+
+        return default;
     }
 }

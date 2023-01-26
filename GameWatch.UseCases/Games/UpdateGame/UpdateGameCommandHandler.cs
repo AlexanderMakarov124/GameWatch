@@ -7,7 +7,7 @@ namespace GameWatch.UseCases.Games.UpdateGame;
 /// <summary>
 /// Handler to update game command.
 /// </summary>
-internal class UpdateGameCommandHandler : AsyncRequestHandler<UpdateGameCommand>
+public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, Unit>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<UpdateGameCommandHandler> logger;
@@ -22,7 +22,7 @@ internal class UpdateGameCommandHandler : AsyncRequestHandler<UpdateGameCommand>
     }
 
     /// <inheritdoc />
-    protected override async Task Handle(UpdateGameCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
     {
         var game = request.Game;
 
@@ -30,5 +30,7 @@ internal class UpdateGameCommandHandler : AsyncRequestHandler<UpdateGameCommand>
         await db.SaveChangesAsync(cancellationToken);
 
         logger.LogDebug("Game with id {Id} was successfully updated.", game.Id);
+
+        return default;
     }
 }

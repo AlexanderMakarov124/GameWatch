@@ -9,7 +9,7 @@ namespace GameWatch.UseCases.GameLists.GetAllGameLists;
 /// <summary>
 /// Handler for get all game lists query.
 /// </summary>
-internal class GetAllGameListsQueryHandler : IRequestHandler<GetAllGameListsQuery, IEnumerable<GameList>>
+public class GetAllGameListsQueryHandler : IRequestHandler<GetAllGameListsQuery, IEnumerable<GameList>>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<GetAllGameListsQueryHandler> logger;
