@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Game } from '../games/game';
-import { GameService } from '../games/game.service';
+import { Game } from '../game-lists/game';
+import { GameService } from '../game-lists/game.service';
 
 @Component({
   selector: 'app-game-detail',

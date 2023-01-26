@@ -3,6 +3,7 @@ using GameWatch.Infrastructure.Common.Exceptions;
 using GameWatch.UseCases.DTOs;
 using GameWatch.UseCases.Games.CreateGame;
 using GameWatch.UseCases.Games.DeleteGame;
+using GameWatch.UseCases.Games.GetGamesByName;
 using GameWatch.UseCases.Games.UpdateGame;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -53,13 +54,32 @@ public class GameController : ControllerBase
     }
 
     /// <summary>
+    /// GET games that contain given name.
+    /// </summary>
+    /// <param name="name">Name.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>Games.</returns>
+    [HttpGet("{name}")]
+    public async Task<IActionResult> GetGamesByName(string name, CancellationToken cancellationToken)
+    {
+        var query = new GetGamesByNameQuery
+        {
+            Name = name
+        };
+
+        var games = await mediator.Send(query, cancellationToken);
+
+        return Ok(games);
+    }
+
+    /// <summary>
     /// PUT: Updates game.
     /// </summary>
     /// <param name="game">Updated game.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpPut]
-    public async Task<ActionResult> UpdateGame(Game game, CancellationToken cancellationToken)
+    public async Task<IActionResult> UpdateGame(Game game, CancellationToken cancellationToken)
     {
         var command = new UpdateGameCommand
         {
@@ -78,7 +98,7 @@ public class GameController : ControllerBase
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <returns>Status 200 - ok.</returns>
     [HttpDelete("{name}")]
-    public async Task<ActionResult> DeleteGame(string name, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteGame(string name, CancellationToken cancellationToken)
     {
         var command = new DeleteGameCommand
         {

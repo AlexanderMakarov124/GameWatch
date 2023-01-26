@@ -5,21 +5,8 @@
         <input id="name" type="text" [(ngModel)]="gameList.name" placeholder="name">
         <button type="button" (click)="save()">Save</button>
     </div>
-    <div>
-        <label>Games</label>
-        <ul>
-            <li *ngFor="let game of gameList?.games">
-                <div (click)="onSelect(game)">
-                    {{game.name}}
-                    {{game.genre}}
-                    {{game.createdAt | date:'shortDate'}}
     
-                    <button type="button" class="delete" title="delete game" (click)="deleteGame(game)">Delete</button>
-                </div>
-            </li>
-        </ul>
-    </div>
+    <app-games [games]="gameList.games"></app-games>
 </div>
 
 
-<app-game-detail [game]="selectedGame"></app-game-detail>

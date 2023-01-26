@@ -1,12 +1,16 @@
-<h1>Games</h1>
-
+<h2>Games</h2>
 <div>
-    <div *ngFor="let gameList of gameLists">
-        <label (click)="onSelect(gameList)">{{gameList.name}}</label>
-        <button type="button" class="delete" title="delete game list" (click)="deleteGameList(gameList)">
-            Delete game list
-        </button>
-    </div>
+    <ul>
+        <li *ngFor="let game of games">
+            <div (click)="onSelect(game)">
+                {{game.name}}
+                {{game.genre}}
+                {{game.createdAt | date:'shortDate'}}
+
+                <button type="button" class="delete" title="delete game" (click)="deleteGame(game)">Delete</button>
+            </div>
+        </li>
+    </ul>
 </div>
 
-<app-game-list-detail [gameList]="selectedGameList"></app-game-list-detail>
+<app-game-detail [game]="selectedGame"></app-game-detail>

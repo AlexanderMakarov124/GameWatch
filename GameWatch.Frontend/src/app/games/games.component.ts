@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from './game.service';
-import { Game } from './game';
-import { filter, first, map, Observable, Subject, tap, toArray } from 'rxjs';
-import { GameList } from './gameList';
-import { GameListService } from './game-list.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Game } from '../game-lists/game';
+import { GameService } from '../game-lists/game.service';
 
 @Component({
   selector: 'app-games',
@@ -11,36 +8,22 @@ import { GameListService } from './game-list.service';
   styleUrls: ['./games.component.css'],
 })
 export class GamesComponent implements OnInit {
-  // games$: Observable<Game[]> | undefined;
-  // games$: Subject<Game[]> | undefined;
+  @Input() games?: Game[];
+  selectedGame?: Game;
 
-  gameLists: GameList[] = [];
-  selectedGameList?: GameList;
+  constructor(private gameService: GameService) {}
 
-  constructor(
-    private gameService: GameService,
-    private gameListService: GameListService
-  ) {}
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.getAllGameLists();
+  onSelect(game: Game): void {
+    this.selectedGame = game;
   }
 
-  onSelect(gameList: GameList): void {
-    this.selectedGameList = gameList;
-  }
-
-  getAllGameLists(): void {
-    this.gameListService
-      .getAllGameLists()
-      .subscribe(gameLists => (this.gameLists = gameLists));
-  }
-
-  deleteGameList(gameList: GameList): void {
-    this.gameLists = this.gameLists.filter(h => h !== gameList);
+  deleteGame(game: Game): void {
+    // this.gameList?.games = this.gameList?.games.filter(h => h !== game);
     // this.games$?.pipe(
     //   filter(h => h !== game)
     // )
-    this.gameListService.deleteGameList(gameList.id).subscribe();
+    this.gameService.deleteGame(game.name).subscribe();
   }
 }

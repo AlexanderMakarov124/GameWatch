@@ -17,27 +17,6 @@ export class GameService {
   constructor(private http: HttpClient) {}
 
   /**
-   * GET all games from server.
-   */
-  getAllGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.gamesUrl).pipe(catchError(this.handleError<Game[]>('getAllGames', [])));
-  }
-
-  /**
-   * GET a game by name.
-   *
-   * @param name - Game name.
-   * @returns Game.
-   */
-  getGameByName(name: string): Observable<Game> {
-    const gameUrl = `${this.gamesUrl}/${name}`;
-
-    return this.http
-      .get<Game>(gameUrl)
-      .pipe(catchError(this.handleError<Game>(`getGameByName name=${name}`)));
-  }
-
-  /**
    * POST: Creates the game.
    *
    * @param game - Game to create.
@@ -46,6 +25,20 @@ export class GameService {
     return this.http
       .post<Game>(this.gamesUrl, game, this.httpOptions)
       .pipe(catchError(this.handleError<Game>('createGame')));
+  }
+
+  /**
+   * GET games by name.
+   *
+   * @param name - Name to find.
+   * @returns Games.
+   */
+  getGamesByName(name: string): Observable<Game[]> {
+    const url = `${this.gamesUrl}/${name}`;
+
+    return this.http
+      .get<Game[]>(url)
+      .pipe(catchError(this.handleError<Game[]>(`getGamesByName name=${name}`)));
   }
 
   /**

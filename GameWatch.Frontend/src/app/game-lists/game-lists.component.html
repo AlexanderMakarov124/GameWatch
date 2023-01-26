@@ -1,0 +1,12 @@
+<h1>Game lists</h1>
+
+<div>
+    <div *ngFor="let gameList of gameLists">
+        <label (click)="onSelect(gameList)">{{gameList.name}}</label>
+        <button type="button" class="delete" title="delete game list" (click)="deleteGameList(gameList)">
+            Delete game list
+        </button>
+    </div>
+</div>
+
+<app-game-list-detail [gameList]="selectedGameList"></app-game-list-detail>
