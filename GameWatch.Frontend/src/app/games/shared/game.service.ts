@@ -34,8 +34,8 @@ export class GameService {
    * @returns Games.
    */
   getGamesByName(name: string): Observable<Game[]> {
-      const url = `${this.gamesUrl}/${name}`;      
-      return this.http
+    const url = `${this.gamesUrl}/${name}`;
+    return this.http
       .get<Game[]>(url)
       .pipe(catchError(this.handleError<Game[]>(`getGamesByName name=${name}`)));
   }
@@ -48,7 +48,7 @@ export class GameService {
   updateGame(game: Game): Observable<any> {
     return this.http
       .put(this.gamesUrl, game, this.httpOptions)
-      .pipe(catchError(this.handleError<any>('updateHero')));
+      .pipe(catchError(this.handleError<any>('updateGame')));
   }
 
   /**
@@ -61,7 +61,7 @@ export class GameService {
 
     return this.http
       .delete<Game>(url, this.httpOptions)
-      .pipe(catchError(this.handleError<Game>('deleteHero')));
+      .pipe(catchError(this.handleError<Game>('deleteGame')));
   }
 
   /**
