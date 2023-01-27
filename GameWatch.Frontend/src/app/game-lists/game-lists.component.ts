@@ -17,15 +17,11 @@ export class GameListsComponent implements OnInit {
   constructor(private gameListService: GameListService) {}
 
   ngOnInit(): void {
-    this.getAllGameLists();
+    this.gameListService.getAllGameLists().subscribe(gameLists => (this.gameLists = gameLists));
   }
 
   onSelect(gameList: GameList): void {
     this.selectedGameList = gameList;
-  }
-
-  getAllGameLists(): void {
-    this.gameListService.getAllGameLists().subscribe(gameLists => (this.gameLists = gameLists));
   }
 
   deleteGameList(gameList: GameList): void {
