@@ -3,6 +3,8 @@ using GameWatch.Infrastructure.Common.Exceptions;
 using GameWatch.UseCases.DTOs;
 using GameWatch.UseCases.Games.CreateGame;
 using GameWatch.UseCases.Games.DeleteGame;
+using GameWatch.UseCases.Games.GetAllGames;
+using GameWatch.UseCases.Games.GetGameById;
 using GameWatch.UseCases.Games.GetGamesByName;
 using GameWatch.UseCases.Games.UpdateGame;
 using MediatR;
@@ -51,6 +53,49 @@ public class GameController : ControllerBase
         }
 
         return StatusCode(201);
+    }
+
+    /// <summary>
+    /// GET all games.
+    /// </summary>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>Games.</returns>
+    [HttpGet]
+    public async Task<IActionResult> GetAllGames(CancellationToken cancellationToken)
+    {
+        var query = new GetAllGamesQuery();
+
+        var games = await mediator.Send(query, cancellationToken);
+
+        return Ok(games);
+    }
+
+    /// <summary>
+    /// GET game by id.
+    /// </summary>
+    /// <param name="id">Game id.</param>
+    /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <returns>Game.</returns>
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
+    {
+        var query = new GetGameByIdQuery
+        {
+            Id = id
+        };
+
+        Game game;
+
+        try
+        {
+            game = await mediator.Send(query, cancellationToken);
+        }
+        catch (NotFoundException)
+        {
+            return BadRequest();
+        }
+
+        return Ok(game);
     }
 
     /// <summary>

@@ -14,6 +14,7 @@ import { CreateGameComponent } from './games/create-game/create-game.component';
 import { FindGameComponent } from './games/find-game/find-game.component';
 import { GameDetailComponent } from './games/game-detail/game-detail.component';
 import { GamesComponent } from './games/games.component';
+import { RandomGameComponent } from './games/random-game/random-game.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { GamesComponent } from './games/games.component';
     GameListDetailComponent,
     FindGameComponent,
     GamesComponent,
+    RandomGameComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule, AppRoutingModule, ReactiveFormsModule],
   providers: [],

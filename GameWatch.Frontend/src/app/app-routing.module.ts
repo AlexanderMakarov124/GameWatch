@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateGameListComponent } from './game-lists/create-game-list/create-game-list.component';
 import { CreateGameComponent } from './games/create-game/create-game.component';
 import { FindGameComponent } from './games/find-game/find-game.component';
+import { RandomGameComponent } from './games/random-game/random-game.component';
 
 const routes: Routes = [
   { path: 'games/create', component: CreateGameComponent },
   { path: 'gameLists/create', component: CreateGameListComponent },
   { path: 'games/find', component: FindGameComponent },
+  { path: 'games/random', component: RandomGameComponent}
 ];
 
 @NgModule({
