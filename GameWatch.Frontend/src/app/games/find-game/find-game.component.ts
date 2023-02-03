@@ -10,6 +10,7 @@ import { GameService } from '../shared/game.service';
 })
 export class FindGameComponent implements OnInit {
   games: Game[] = [];
+  filter?: string;
 
   findForm = this.formBuilder.group({
     name: ['', Validators.required],
@@ -23,6 +24,7 @@ export class FindGameComponent implements OnInit {
     let name: string = this.findForm.value.name as string;
     name = name.trim();
 
-    this.gameService.getGamesByName(name).subscribe(games => (this.games = games));
+    this.gameService.getAllGames().subscribe(games => (this.games = games));
+    this.filter = name;
   }
 }

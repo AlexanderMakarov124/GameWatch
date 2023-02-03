@@ -19,4 +19,8 @@ export class GameDetailComponent implements OnInit {
       this.gameService.updateGame(this.game).subscribe();
     }
   }
+
+  delete(): void {
+    this.gameService.deleteGame(this.game?.name as string).subscribe();
+  }
 }

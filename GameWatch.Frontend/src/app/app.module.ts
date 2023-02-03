@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator'
 
 import { AppComponent } from './app.component';
 
@@ -39,7 +40,9 @@ import { RandomGameComponent } from './games/random-game/random-game.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    MatPaginatorModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
