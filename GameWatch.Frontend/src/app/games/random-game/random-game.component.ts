@@ -20,9 +20,5 @@ export class RandomGameComponent implements OnInit {
     const randomNumber = Math.floor(Math.random() * games.length);
 
     this.game = games[randomNumber];
-
-    console.log(games.length);
-    console.log(randomNumber);
-    console.log(this.game);
   }
 }

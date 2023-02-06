@@ -3,7 +3,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Game } from './shared/game.model';
-import { GameService } from './shared/game.service';
 
 @Component({
   selector: 'app-games',
@@ -20,7 +19,7 @@ export class GamesComponent implements OnInit {
 
   displayedColumns = ['id', 'name', 'genre', 'createdAt'];
 
-  constructor(private gameService: GameService) {}
+  constructor() {}
 
   ngOnChanges(): void {
     this.dataSource = new MatTableDataSource(this.games);
@@ -32,11 +31,6 @@ export class GamesComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
 
   onSelect(game: Game): void {
     this.selectedGame = game;

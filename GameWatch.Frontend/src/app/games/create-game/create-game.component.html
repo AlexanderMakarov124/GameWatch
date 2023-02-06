@@ -1,34 +1,36 @@
+<h3>Create game</h3>
+
 <div>
-   <form [formGroup]="createGameForm" (ngSubmit)="create()">
-      <div>
-         <label for="name">Name: </label>
-         <input id="name" type="text" formControlName="name">
-      </div>
+    <form [formGroup]="createGameForm" (ngSubmit)="create()">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" type="text" class="form-control" formControlName="name">
+        </div>
 
-      <div>
-         <label for="genre">Genre: </label>
-         <input id="genre" type="text" formControlName="genre">
-      </div>
+        <div class="form-group">
+            <label for="genre">Genre</label>
+            <input id="genre" type="text" class="form-control" formControlName="genre">
+        </div>
 
-      <div>
-         <label for="description">Description: </label>
-         <input id="description" type="text" formControlName="description">
-      </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <input id="description" type="text" class="form-control" formControlName="description">
+        </div>
 
-      <div>
-         <label for="gameListName">Game list:</label>
-         <select id="gameListName" formControlName="gameListName">
-            <option value="">Choose game list</option>
-            <option *ngFor="let gameList of gameLists">
-               {{gameList.name}}
-            </option>
-         </select>
-      </div>
+        <div class="form-group">
+            <label for="gameListName">Game list</label>
+            <select id="gameListName" class="custom-select" formControlName="gameListName">
+                <option value="" selected>Choose game list</option>
+                <option *ngFor="let gameList of gameLists">
+                    {{gameList.name}}
+                </option>
+            </select>
+        </div>
 
-      <div>
-         <button type="submit" class="create-button" [disabled]="!createGameForm.valid">
-            Create game
-         </button>
-      </div>
-   </form>
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="!createGameForm.valid">
+                Create
+            </button>
+        </div>
+    </form>
 </div>

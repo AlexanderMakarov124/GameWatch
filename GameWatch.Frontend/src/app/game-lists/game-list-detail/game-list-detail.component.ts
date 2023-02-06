@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { GameListService } from '../shared/game-list.service';
 import { GameList } from '../shared/game-list.model';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-game-list-detail',
@@ -9,11 +12,21 @@ import { GameList } from '../shared/game-list.model';
 })
 export class GameListDetailComponent implements OnInit {
   @Input() gameList?: GameList;
-  @Output() deleted = new EventEmitter<GameList>();
 
-  constructor(private gameListService: GameListService) {}
+  constructor(
+    private gameListService: GameListService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.paramMap.pipe(
+      map((params: ParamMap) => {
+        const id: number | null = Number(params.get('id'));
+        this.gameListService.getGameListById(id).subscribe(gameList => (this.gameList = gameList));
+      })
+    ).subscribe();
+  }
 
   save(): void {
     if (this.gameList) {
@@ -22,7 +35,9 @@ export class GameListDetailComponent implements OnInit {
   }
 
   delete(): void {
-    this.gameListService.deleteGameList(this.gameList?.id as number).subscribe();
-    this.deleted.emit(this.gameList);
+    this.gameListService
+      .deleteGameList(this.gameList?.id as number)
+      .pipe(tap(_ => this.router.navigateByUrl('')))
+      .subscribe();
   }
 }

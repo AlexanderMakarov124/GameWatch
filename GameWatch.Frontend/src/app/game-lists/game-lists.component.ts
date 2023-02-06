@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameListService } from './shared/game-list.service';
 import { GameList } from './shared/game-list.model';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-game-lists',
@@ -17,18 +18,15 @@ export class GameListsComponent implements OnInit {
   constructor(private gameListService: GameListService) {}
 
   ngOnInit(): void {
-    this.getAllGames();
-  }
+    const PLANNED = 'Planned';
 
-  getAllGames(): void {
-    this.gameListService.getAllGameLists().subscribe(gameLists => (this.gameLists = gameLists));
+    this.gameListService
+      .getAllGameLists()
+      .pipe(tap(gameLists => (this.selectedGameList = gameLists.find(gl => gl.name == PLANNED))))
+      .subscribe(gameLists => (this.gameLists = gameLists));
   }
 
   onSelect(gameList: GameList): void {
     this.selectedGameList = gameList;
-  }
-
-  onDelete(gameList: GameList): void {
-    this.gameLists = this.gameLists.filter(gl => gl !== gameList);
   }
 }

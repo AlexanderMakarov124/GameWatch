@@ -1,9 +1,10 @@
-<h1>Game lists</h1>
+<h3>Game lists</h3>
 
 <div>
     <div class="game-list" *ngFor="let gameList of gameLists">
-        <label (click)="onSelect(gameList)">{{gameList.name}}</label>
+        <label class="game-list-name" (click)="onSelect(gameList)">{{gameList.name}}</label>
+        <a routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList"> Details </a>
     </div>
 </div>
 
-<app-game-list-detail [gameList]="selectedGameList" (deleted)="onDelete($event)"></app-game-list-detail>
+<app-games [games]="selectedGameList?.games"></app-games>

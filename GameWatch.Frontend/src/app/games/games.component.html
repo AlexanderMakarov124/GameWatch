@@ -1,6 +1,6 @@
-<h2>Games</h2>
+<h3>Games</h3>
 
-<div>
+<div id="games-test" class="games-table">
     <table mat-table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="id">
@@ -34,7 +34,7 @@
 
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of games">
+    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons aria-label="Select page of games">
     </mat-paginator>
 </div>
 

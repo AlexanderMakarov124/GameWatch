@@ -1,21 +1,21 @@
-table {
-    min-width: 50%;
+.mat-sort-header, ::ng-deep .mdc-data-table__content {
+    font-size: var(--common-font-size);
+    font-family: var(--common-font-family);
 }
 
-.mat-mdc-row .mat-mdc-cell {
+.mat-mdc-row .mat-mdc-cell{
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
     cursor: pointer;
+    font-size: var(--common-font-size);
+    font-family: var(--common-font-family);
+}
+
+.mat-mdc-paginator, ::ng-deep .mat-mdc-paginator .mat-mdc-select-value, ::ng-deep .mat-mdc-option{
+    font-size: var(--common-font-size);
+    font-family: var(--common-font-family);
 }
 
 .mat-mdc-row:hover .mat-mdc-cell {
-    border-color: currentColor;
-}
-
-.demo-row-is-clicked {
-    font-weight: bold;
-}
-
-.mat-mdc-paginator {
-    max-width: 50%;
+    border-color: var(--active-color);
 }

@@ -15,12 +15,18 @@ export class GameListService {
 
   constructor(private http: HttpClient) {}
 
+  createGameList(gameList: GameList): Observable<GameList> {
+    return this.http.post<GameList>(this.gameListsUrl, gameList, this.httpOptions);
+  }
+
   getAllGameLists(): Observable<GameList[]> {
     return this.http.get<GameList[]>(this.gameListsUrl);
   }
 
-  createGameList(gameList: GameList): Observable<GameList> {
-    return this.http.post<GameList>(this.gameListsUrl, gameList, this.httpOptions);
+  getGameListById(id: number): Observable<GameList> {    
+    const url = `${this.gameListsUrl}/${id}`;
+
+    return this.http.get<GameList>(url);
   }
 
   updateGameList(gameList: GameList): Observable<unknown> {
