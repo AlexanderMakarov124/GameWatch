@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GameListService } from '../shared/game-list.service';
 import { GameList } from '../shared/game-list.model';
-import { GameService } from 'src/app/games/shared/game.service';
 
 @Component({
   selector: 'app-game-list-detail',
@@ -10,8 +9,9 @@ import { GameService } from 'src/app/games/shared/game.service';
 })
 export class GameListDetailComponent implements OnInit {
   @Input() gameList?: GameList;
+  @Output() deleted = new EventEmitter<GameList>();
 
-  constructor(private gameService: GameService, private gameListService: GameListService) {}
+  constructor(private gameListService: GameListService) {}
 
   ngOnInit(): void {}
 
@@ -19,5 +19,10 @@ export class GameListDetailComponent implements OnInit {
     if (this.gameList) {
       this.gameListService.updateGameList(this.gameList).subscribe();
     }
+  }
+
+  delete(): void {
+    this.gameListService.deleteGameList(this.gameList?.id as number).subscribe();
+    this.deleted.emit(this.gameList);
   }
 }

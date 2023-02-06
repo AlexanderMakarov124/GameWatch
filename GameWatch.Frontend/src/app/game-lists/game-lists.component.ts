@@ -17,6 +17,10 @@ export class GameListsComponent implements OnInit {
   constructor(private gameListService: GameListService) {}
 
   ngOnInit(): void {
+    this.getAllGames();
+  }
+
+  getAllGames(): void {
     this.gameListService.getAllGameLists().subscribe(gameLists => (this.gameLists = gameLists));
   }
 
@@ -24,11 +28,7 @@ export class GameListsComponent implements OnInit {
     this.selectedGameList = gameList;
   }
 
-  deleteGameList(gameList: GameList): void {
-    this.gameLists = this.gameLists.filter(h => h !== gameList);
-    // this.games$?.pipe(
-    //   filter(h => h !== game)
-    // )
-    this.gameListService.deleteGameList(gameList.id).subscribe();
+  onDelete(gameList: GameList): void {
+    this.gameLists = this.gameLists.filter(gl => gl !== gameList);
   }
 }

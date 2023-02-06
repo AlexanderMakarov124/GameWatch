@@ -5,8 +5,9 @@
         <input id="name" type="text" [(ngModel)]="gameList.name" placeholder="name">
         <button type="button" (click)="save()">Save</button>
     </div>
-    
+    <button type="button" class="delete" title="delete game list" (click)="delete()">
+        Delete game list
+    </button>
+
     <app-games [games]="gameList.games"></app-games>
 </div>
-
-
