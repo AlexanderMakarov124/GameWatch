@@ -29,4 +29,6 @@ public class Game
     /// Date when the game was created.
     /// </summary>
     public DateTime CreatedAt { get; init; }
+    
+    public int GameListId { get; init; }
 }

@@ -2,7 +2,12 @@
 
 <div>
     <div class="game-list" *ngFor="let gameList of gameLists">
-        <label class="game-list-name" (click)="onSelect(gameList)">{{gameList.name}}</label>
+        <label class="game-list-name--activated" (click)="onSelect(gameList)"
+            *ngIf="gameList.name == selectedGameList?.name; else defaultLabel">{{gameList.name}}
+        </label>
+        <ng-template #defaultLabel>
+            <label class="game-list-name" (click)="onSelect(gameList)">{{gameList.name}}</label>
+        </ng-template>
         <a routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList"> Details </a>
     </div>
 </div>

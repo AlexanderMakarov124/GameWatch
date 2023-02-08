@@ -4,5 +4,6 @@ export interface Game {
   genre: string;
   description: string;
   createdAt: Date;
+  gameListId: number;
   gameListName: string;
 }
