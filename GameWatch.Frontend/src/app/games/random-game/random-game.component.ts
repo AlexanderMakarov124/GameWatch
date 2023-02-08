@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameListService } from 'src/app/game-lists/shared/game-list.service';
 import { Game } from '../shared/game.model';
 import { GameService } from '../shared/game.service';
 
@@ -10,7 +11,7 @@ import { GameService } from '../shared/game.service';
 export class RandomGameComponent implements OnInit {
   game?: Game;
 
-  constructor(private gameService: GameService) {}
+  constructor(private gameService: GameService, private gameListService: GameListService) {}
 
   ngOnInit(): void {
     this.gameService.getAllGames().subscribe(games => this.getRandomGame(games));
@@ -20,5 +21,8 @@ export class RandomGameComponent implements OnInit {
     const randomNumber = Math.floor(Math.random() * games.length);
 
     this.game = games[randomNumber];
+    this.gameListService
+      .getGameListById(this.game.gameListId)
+      .subscribe(gameList => (this.game!.gameListName = gameList.name));
   }
 }

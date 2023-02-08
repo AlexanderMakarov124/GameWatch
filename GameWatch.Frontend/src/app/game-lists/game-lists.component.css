@@ -3,7 +3,7 @@
     margin-right: 5px;
 }
 
-.game-list-name:hover{
+.game-list-name:hover, .game-list-name--activated{
     cursor: pointer;
     text-decoration: underline;
 }
