@@ -6,4 +6,6 @@ export interface Game {
   createdAt: Date;
   gameListId: number;
   gameListName: string;
+  storeLink: string;
+  downloadLink: string;
 }

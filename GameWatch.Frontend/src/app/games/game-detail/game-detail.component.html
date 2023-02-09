@@ -15,13 +15,21 @@
             <textarea id="description" class="form-control" [(ngModel)]="game.description"
                 placeholder="description"></textarea>
         </div>
-    </div>
-    <div class="row">
-        <div class=" col-md-1">
-            <button type="button" class="btn btn-success" (click)="save()">Save</button>
+        <div class="row form-group" *ngIf="game.downloadLink || game.storeLink">
+            <div class=" col-sm-2" *ngIf="game.storeLink">
+                <a class="btn btn-primary" role="button" href="{{game.storeLink}}">Check in store</a>
+            </div>
+            <div class=" col-sm-1" *ngIf="game.downloadLink">
+                <a class="btn btn-primary" role="button" href="{{game.downloadLink}}">Download</a>
+            </div>
         </div>
-        <div class=" col-md-1">
-            <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+        <div class="row">
+            <div class=" col-sm-1">
+                <button type="button" class="btn btn-success" (click)="save()">Save</button>
+            </div>
+            <div class=" col-sm-1">
+                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+            </div>
         </div>
     </div>
 </div>
