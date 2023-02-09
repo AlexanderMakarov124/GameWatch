@@ -22,6 +22,8 @@ export class CreateGameComponent implements OnInit {
     genre: ['', Validators.required],
     description: [''],
     gameListName: [''],
+    storeLink: [''],
+    downloadLink: ['']
   });
 
   gameLists: GameList[] = [];
@@ -43,6 +45,8 @@ export class CreateGameComponent implements OnInit {
     game.genre = game.genre.trim();
     game.description = game.description.trim();
     game.gameListName = game.gameListName.trim();
+    game.storeLink = game.storeLink.trim();
+    game.downloadLink = game.downloadLink.trim();
 
     this.gameService.createGame(game).subscribe();
 

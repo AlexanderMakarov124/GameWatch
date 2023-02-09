@@ -16,4 +16,10 @@ public record GameDto
     /// Name of the list which this game belongs.
     /// </summary>
     public string GameListName { get; init; } = null!;
+
+    /// <inheritdoc cref="Game.StoreLink"/>
+    public string? StoreLink { get; init; }
+
+    /// <inheritdoc cref="Game.DownloadLink"/>
+    public string? DownloadLink { get; init; }
 }
