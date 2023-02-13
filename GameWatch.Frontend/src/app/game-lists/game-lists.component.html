@@ -12,4 +12,4 @@
     </div>
 </div>
 
-<app-games [games]="selectedGameList?.games"></app-games>
+<app-games [games]="selectedGameList?.games" (deleted)="onDelete()"></app-games>

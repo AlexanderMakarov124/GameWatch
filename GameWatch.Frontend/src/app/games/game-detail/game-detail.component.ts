@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from '../shared/game.model';
 import { GameService } from '../shared/game.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-game-detail',
@@ -9,6 +10,7 @@ import { GameService } from '../shared/game.service';
 })
 export class GameDetailComponent implements OnInit {
   @Input() game?: Game;
+  @Output() deleted = new EventEmitter();
 
   constructor(private gameService: GameService) {}
 
@@ -21,6 +23,9 @@ export class GameDetailComponent implements OnInit {
   }
 
   delete(): void {
-    this.gameService.deleteGame(this.game?.name as string).subscribe();
+    this.gameService
+      .deleteGame(this.game?.name as string)
+      .pipe(tap(_ => this.deleted.emit()))
+      .subscribe();
   }
 }

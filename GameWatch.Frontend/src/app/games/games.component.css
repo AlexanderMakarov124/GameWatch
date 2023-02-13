@@ -3,6 +3,14 @@
     font-family: var(--common-font-family);
 }
 
+.mat-column-name{
+    width: 50%;
+}
+
+.mat-column-genre{
+    width: 20%;
+}
+
 .mat-mdc-row .mat-mdc-cell{
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;

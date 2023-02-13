@@ -3,11 +3,6 @@
 <div id="games-test" class="games-table">
     <table mat-table [dataSource]="dataSource" matSort>
 
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> Id </th>
-            <td mat-cell *matCellDef="let game">{{game.id}}</td>
-        </ng-container>
-
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
             <td mat-cell *matCellDef="let game"> {{game.name}} </td>
@@ -38,4 +33,4 @@
     </mat-paginator>
 </div>
 
-<app-game-detail [game]="selectedGame"></app-game-detail>
+<app-game-detail [game]="selectedGame" (deleted)="onDelete()"></app-game-detail>

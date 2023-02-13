@@ -18,15 +18,30 @@ export class GameListsComponent implements OnInit {
   constructor(private gameListService: GameListService) {}
 
   ngOnInit(): void {
+    this.loadGameLists();
+  }
+
+  loadGameLists(): void {
     const PLANNED = 'Planned';
 
     this.gameListService
       .getAllGameLists()
-      .pipe(tap(gameLists => (this.selectedGameList = gameLists.find(gl => gl.name == PLANNED))))
+      .pipe(
+        tap(gameLists => {
+          this.selectedGameList = gameLists.find(gl => gl.name == PLANNED);
+          if (!this.selectedGameList){
+            this.selectedGameList = gameLists[0];
+          }
+        })
+      )
       .subscribe(gameLists => (this.gameLists = gameLists));
   }
 
   onSelect(gameList: GameList): void {
     this.selectedGameList = gameList;
+  }
+
+  onDelete(): void {
+    this.loadGameLists();
   }
 }
