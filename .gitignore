@@ -353,3 +353,4 @@ MigrationBackup/
 # Custom
 lib
 appsettings.Development.json
+appsettings.json

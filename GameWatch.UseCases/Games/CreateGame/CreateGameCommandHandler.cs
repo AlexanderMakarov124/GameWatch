@@ -1,10 +1,15 @@
 ﻿using AutoMapper;
 using GameWatch.DataAccess;
 using GameWatch.Domain.Entities;
+using GameWatch.Infrastructure;
+using GameWatch.Infrastructure.Abstractions;
 using GameWatch.Infrastructure.Common.Exceptions;
+using GameWatch.UseCases.DTOs;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using IGDB;
+using Game = GameWatch.Domain.Entities.Game;
 
 namespace GameWatch.UseCases.Games.CreateGame;
 
@@ -16,15 +21,18 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
     private readonly ApplicationContext db;
     private readonly ILogger<CreateGameCommandHandler> logger;
     private readonly IMapper mapper;
+    private readonly IIgdbService igdb;
 
     /// <summary>
     /// Constructor.
     /// </summary>
-    public CreateGameCommandHandler(ApplicationContext db, ILogger<CreateGameCommandHandler> logger, IMapper mapper)
+    public CreateGameCommandHandler(
+        ApplicationContext db, ILogger<CreateGameCommandHandler> logger, IMapper mapper, IIgdbService igdb)
     {
         this.db = db;
         this.logger = logger;
         this.mapper = mapper;
+        this.igdb = igdb;
     }
 
     /// <inheritdoc />
@@ -45,6 +53,7 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
         await db.Entry(gameList).Collection(gl => gl.Games).LoadAsync(cancellationToken);
 
         var game = mapper.Map<Game>(gameDto);
+        game.CoverUrl = await igdb.GetGameCoverUrl(game.Name);
         gameList.Games.Add(game);
 
         await db.SaveChangesAsync(cancellationToken);

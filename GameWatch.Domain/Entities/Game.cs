@@ -44,4 +44,9 @@ public class Game
     /// Link to download this game.
     /// </summary>
     public string? DownloadLink { get; init; }
+
+    /// <summary>
+    /// Cover of the game.
+    /// </summary>
+    public string? CoverUrl { get; set; }
 }

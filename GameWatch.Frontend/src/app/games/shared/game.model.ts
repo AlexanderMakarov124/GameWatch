@@ -8,4 +8,5 @@ export interface Game {
   gameListName: string;
   storeLink: string;
   downloadLink: string;
+  coverUrl: string;
 }
