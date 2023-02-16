@@ -20,10 +20,18 @@ GO
 
 EXECUTE CreateGameLists
 
+EXECUTE CreateGenres
+
 EXECUTE CreateGames
+
+EXECUTE CreateGamesGenres
 
 -- Insert data.
 
 EXECUTE InsertGameLists
 
+EXECUTE InsertGenres
+
 EXECUTE InsertGames
+
+EXECUTE InsertGamesGenres

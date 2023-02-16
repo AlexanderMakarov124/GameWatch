@@ -6,9 +6,6 @@ public record GameDto
     /// <inheritdoc cref="Game.Name"/>
     public string Name { get; init; } = null!;
 
-    /// <inheritdoc cref="Game.Genre"/>
-    public string Genre { get; init; } = null!;
-
     /// <inheritdoc cref="Game.Description"/>
     public string? Description { get; init; }
 
@@ -16,9 +13,6 @@ public record GameDto
     /// Name of the list which this game belongs.
     /// </summary>
     public string GameListName { get; init; } = null!;
-
-    /// <inheritdoc cref="Game.StoreLink"/>
-    public string? StoreLink { get; init; }
 
     /// <inheritdoc cref="Game.DownloadLink"/>
     public string? DownloadLink { get; init; }

@@ -53,7 +53,26 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
         await db.Entry(gameList).Collection(gl => gl.Games).LoadAsync(cancellationToken);
 
         var game = mapper.Map<Game>(gameDto);
-        game.CoverUrl = await igdb.GetGameCoverUrl(game.Name);
+
+        var igdbGame = await igdb.GetGameByNameAsync(game.Name);
+
+        game.CoverUrl = igdb.GetCoverUrl(igdbGame);
+        game.Summary = igdbGame.Summary;
+        game.ReleaseDate = igdb.GetFirstDateRelease(igdbGame);
+        game.StoreLink = await igdb.GetStoreLinkAsync(igdbGame);
+
+        await db.Entry(game).Collection(g => g.Genres).LoadAsync(cancellationToken);
+
+        foreach (var igdbGenre in igdbGame.Genres.Values)
+        {
+            var genre = new Genre
+            {
+                Name = igdbGenre.Name
+            };
+
+            game.Genres.Add(genre);
+        }
+
         gameList.Games.Add(game);
 
         await db.SaveChangesAsync(cancellationToken);

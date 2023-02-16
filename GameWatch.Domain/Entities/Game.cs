@@ -16,9 +16,9 @@ public class Game
     public string Name { get; set; } = null!;
 
     /// <summary>
-    /// Genre.
+    /// Genres.
     /// </summary>
-    public string Genre { get; set; } = null!;
+    public ICollection<Genre> Genres { get; init; } = null!;
 
     /// <summary>
     /// User's description about game.
@@ -31,17 +31,17 @@ public class Game
     public DateTime CreatedAt { get; init; }
 
     /// <summary>
-    /// Game list which this game belongs to.
+    /// Game list which the game belongs to.
     /// </summary>
     public int GameListId { get; init; }
 
     /// <summary>
-    /// Link to store with this game.
+    /// Link to store with the game.
     /// </summary>
-    public string? StoreLink { get; init; }
+    public string? StoreLink { get; set; }
 
     /// <summary>
-    /// Link to download this game.
+    /// Link to download the game.
     /// </summary>
     public string? DownloadLink { get; init; }
 
@@ -49,4 +49,14 @@ public class Game
     /// Cover of the game.
     /// </summary>
     public string? CoverUrl { get; set; }
+
+    /// <summary>
+    /// Summary of the game.
+    /// </summary>
+    public string? Summary { get; set; }
+
+    /// <summary>
+    /// Date when the game was firstly released.
+    /// </summary>
+    public DateTime? ReleaseDate { get; set; }
 }
