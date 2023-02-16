@@ -23,6 +23,6 @@ public class GetAllGamesQueryHandler : IRequestHandler<GetAllGamesQuery, IEnumer
     /// <inheritdoc />
     public async Task<IEnumerable<Game>> Handle(GetAllGamesQuery request, CancellationToken cancellationToken)
     {
-        return await db.Games.ToListAsync(cancellationToken);
+        return await db.Games.Include(g => g.Genres).ToListAsync(cancellationToken);
     }
 }

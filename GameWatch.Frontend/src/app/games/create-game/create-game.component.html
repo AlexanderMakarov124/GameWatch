@@ -23,21 +23,6 @@
         </div>
 
         <div class="form-group">
-            <label for="genre">Genre</label>
-            <input id="genre" type="text" class="form-control" formControlName="genre" required>
-
-            <div *ngIf="genre?.invalid && (genre?.dirty || genre?.touched)" class="alert alert-danger">
-                <div *ngIf="genre?.errors?.['required']">
-                    Genre is required.
-                </div>
-
-                <div *ngIf="genre?.errors?.['maxlength']">
-                    Genre must not be longer than 50 characters.
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="description">Description</label>
             <input id="description" type="text" class="form-control" formControlName="description">
         </div>
@@ -60,20 +45,6 @@
             </div>
         </div>
 
-
-
-        <div class="form-group">
-            <label for="storeLink">Store link</label>
-            <input id="storeLink" type="text" class="form-control" formControlName="storeLink">
-
-            <div *ngIf="storeLink?.invalid && !storeLink?.pristine && (storeLink?.dirty || storeLink?.touched)"
-                class="alert alert-danger">
-                <div *ngIf="storeLink?.errors?.['isLink']">
-                    Please, provide a link.
-                </div>
-            </div>
-        </div>
-
         <div class="form-group">
             <label for="downloadLink">Download link</label>
             <input id="downloadLink" type="text" class="form-control" formControlName="downloadLink">
@@ -91,5 +62,6 @@
                 Create
             </button>
         </div>
+
     </form>
 </div>

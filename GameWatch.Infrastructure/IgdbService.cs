@@ -47,7 +47,7 @@ public class IgdbService : IIgdbService
         return cover;
     }
 
-    public DateTime GetFirstDateRelease(Game game)
+    public DateTime GetFirstReleaseDate(Game game)
     {
         var date = game.FirstReleaseDate!.Value.Date;
 
@@ -57,12 +57,12 @@ public class IgdbService : IIgdbService
     public async Task<string> GetStoreLinkAsync(Game game)
     {
         var query =  "fields category,url; " +
-                     $"where game = ${game.Id} & " +
+                     $"where game = {game.Id} & " +
                      "category = (" +
-                     $"{WebsiteCategory.Official}," +
-                     $"{WebsiteCategory.Steam}," +
-                     $"{WebsiteCategory.EpicGames}," +
-                     $"{WebsiteCategory.GOG});";
+                     $"1," +
+                     $"13," +
+                     $"16," +
+                     $"17);";
 
         var websites = await igdb.QueryAsync<Website>(IGDBClient.Endpoints.Websites, query);
 

@@ -58,10 +58,10 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
 
         game.CoverUrl = igdb.GetCoverUrl(igdbGame);
         game.Summary = igdbGame.Summary;
-        game.ReleaseDate = igdb.GetFirstDateRelease(igdbGame);
+        game.ReleaseDate = igdb.GetFirstReleaseDate(igdbGame);
         game.StoreLink = await igdb.GetStoreLinkAsync(igdbGame);
 
-        await db.Entry(game).Collection(g => g.Genres).LoadAsync(cancellationToken);
+        game.Genres = new List<Genre>();
 
         foreach (var igdbGenre in igdbGame.Genres.Values)
         {

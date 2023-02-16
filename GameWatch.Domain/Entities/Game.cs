@@ -18,7 +18,7 @@ public class Game
     /// <summary>
     /// Genres.
     /// </summary>
-    public ICollection<Genre> Genres { get; init; } = null!;
+    public ICollection<Genre> Genres { get; set; } = null!;
 
     /// <summary>
     /// User's description about game.

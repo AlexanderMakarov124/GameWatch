@@ -37,8 +37,13 @@ public class GetGameListByIdQueryHandler : IRequestHandler<GetGameListByIdQuery,
 
             throw new NotFoundException($"Game list with id {id} does not exist.");
         }
-
+        
         await db.Entry(gameList).Collection(gl => gl.Games).LoadAsync(cancellationToken);
+
+        foreach (var game in gameList.Games)
+        {
+            await db.Entry(game).Collection(g => g.Genres).LoadAsync(cancellationToken);
+        }
 
         return gameList;
     }

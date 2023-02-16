@@ -14,4 +14,6 @@ public class Genre
     /// Name.
     /// </summary>
     public string Name { get; init; }
+
+    public ICollection<Game> Games { get; init; } = null;
 }
