@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="IGDB" Version="2.3.1" />
     <PackageReference Include="MediatR" Version="11.0.0" />
     <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
     <PackageReference Include="NLog" Version="5.1.1" />
@@ -21,6 +22,7 @@
     <ProjectReference Include="..\GameWatch.DataAccess\GameWatch.DataAccess.csproj" />
     <ProjectReference Include="..\GameWatch.Domain\GameWatch.Domain.csproj" />
     <ProjectReference Include="..\GameWatch.Infrastructure.Common\GameWatch.Infrastructure.Common.csproj" />
+    <ProjectReference Include="..\GameWatch.Infrastructure\GameWatch.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -23,7 +23,10 @@ public class GetGamesByNameQueryHandler : IRequestHandler<GetGamesByNameQuery, I
     /// <inheritdoc />
     public async Task<IEnumerable<Game>> Handle(GetGamesByNameQuery request, CancellationToken cancellationToken)
     {
-        var games = await db.Games.Where(g => g.Name.ToLower().Contains(request.Name.ToLower())).ToListAsync(cancellationToken);
+        var games = await db.Games
+            .Include(g => g.Genres)
+            .Where(g => g.Name.ToLower().Contains(request.Name.ToLower()))
+            .ToListAsync(cancellationToken);
 
         return games;
     }

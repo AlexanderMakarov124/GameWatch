@@ -1,63 +1,86 @@
 <div *ngIf="game">
     <h2>{{game.name | uppercase}} details</h2>
-    <div><span>Id: {{game.id}}</span></div>
-    <div>
-        <div class="form-group">
-            <label for="name">Name: </label>
-            <input name="name" id="name" class="form-control" [(ngModel)]="game.name" placeholder="Name" required
-                maxlength="75" #name="ngModel">
+    <div class="row">
 
-            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div class="col">
+            <div><span>Id: {{game.id}}</span></div>
 
-                <div *ngIf="name.errors?.['required']">
-                    Name is required.
+            <div>
+                <div class="form-group">
+                    <label for="name">Name: </label>
+                    <input name="name" id="name" class="form-control" [(ngModel)]="game.name" placeholder="Name"
+                        required maxlength="75" #name="ngModel">
+
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+
+                        <div *ngIf="name.errors?.['required']">
+                            Name is required.
+                        </div>
+
+                        <div *ngIf="name.errors?.['maxlength']">
+                            Name must not be longer than 75 characters.
+                        </div>
+
+                    </div>
                 </div>
 
-                <div *ngIf="name.errors?.['maxlength']">
-                    Name must not be longer than 75 characters.
+                <div class="form-group">
+                    <label for="genre">Genres: </label>
+                    <label class="form-control" *ngFor="let genre of game.genres">{{genre.name}}</label>
+
+                    <!-- <input id="genre" class="form-control" [(ngModel)]="game.genre" placeholder="Genre" required
+                        maxlength="50" #genre="ngModel" readonly>
+
+                    <div *ngIf="genre.invalid && (genre.dirty || genre.touched)" class="alert alert-danger">
+                        <div *ngIf="genre.errors?.['required']">
+                            Genre is required.
+                        </div>
+
+                        <div *ngIf="genre.errors?.['maxlength']">
+                            Genre must not be longer than 50 characters.
+                        </div>
+                    </div> -->
                 </div>
 
+                <div class="form-group">
+                    <label for="description">Description: </label>
+                    <textarea id="description" class="form-control" [(ngModel)]="game.description"
+                        placeholder="Description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="summary">Summary: </label>
+                    <textarea id="summary" class="form-control" [(ngModel)]="game.summary"
+                        placeholder="Summary"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="releaseDate">Release date:</label>
+                    <label id="releaseDate" class="form-control">{{game.releaseDate | date: 'shortDate'}}</label>
+                </div>
+
+                <div class="row form-group" *ngIf="game.downloadLink || game.storeLink">
+                    <div class=" col-sm-2" *ngIf="game.storeLink">
+                        <a class="btn btn-primary" role="button" href="{{game.storeLink}}">Check in store</a>
+                    </div>
+                    <div class=" col-sm-1" *ngIf="game.downloadLink">
+                        <a class="btn btn-primary" role="button" href="{{game.downloadLink}}">Download link</a>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class=" col-sm-1">
+                        <button type="button" class="btn btn-success" (click)="save()">Save</button>
+                    </div>
+                    <div class=" col-sm-1">
+                        <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="genre">Genre: </label>
-            <input id="genre" class="form-control" [(ngModel)]="game.genre" placeholder="genre" required maxlength="50"
-                #genre="ngModel">
-
-            <div *ngIf="genre.invalid && (genre.dirty || genre.touched)" class="alert alert-danger">
-                <div *ngIf="genre.errors?.['required']">
-                    Genre is required.
-                </div>
-
-                <div *ngIf="genre.errors?.['maxlength']">
-                    Genre must not be longer than 50 characters.
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Description: </label>
-            <textarea id="description" class="form-control" [(ngModel)]="game.description"
-                placeholder="description"></textarea>
-        </div>
-
-        <div class="row form-group" *ngIf="game.downloadLink || game.storeLink">
-            <div class=" col-sm-2" *ngIf="game.storeLink">
-                <a class="btn btn-primary" role="button" href="{{game.storeLink}}">Check in store</a>
-            </div>
-            <div class=" col-sm-1" *ngIf="game.downloadLink">
-                <a class="btn btn-primary" role="button" href="{{game.downloadLink}}">Download link</a>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class=" col-sm-1">
-                <button type="button" class="btn btn-success" (click)="save()">Save</button>
-            </div>
-            <div class=" col-sm-1">
-                <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
-            </div>
+        <div class="col-" *ngIf="game.coverUrl">
+            <img src="{{game.coverUrl}}" alt="{{game.name}} cover">
         </div>
     </div>
 </div>

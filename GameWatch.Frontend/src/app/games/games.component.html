@@ -8,9 +8,11 @@
             <td mat-cell *matCellDef="let game"> {{game.name}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="genre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by genre"> Genre </th>
-            <td mat-cell *matCellDef="let game"> {{game.genre}} </td>
+        <ng-container matColumnDef="genres">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by genres"> Genres </th>
+            <td mat-cell *matCellDef="let game"> 
+                <label *ngFor="let genre of game.genres"> {{genre.name}}&nbsp;</label>
+            </td>
         </ng-container>
 
         <ng-container matColumnDef="createdAt">

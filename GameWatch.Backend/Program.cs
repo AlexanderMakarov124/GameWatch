@@ -1,7 +1,11 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using GameWatch.Backend.Behaviors;
 using GameWatch.Backend.MappingProfiles;
 using GameWatch.DataAccess;
+using GameWatch.Infrastructure;
+using GameWatch.Infrastructure.Abstractions;
+using GameWatch.Infrastructure.Common;
 using GameWatch.UseCases.Games.CreateGame;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +20,9 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddControllers();
+    builder.Services
+        .AddControllers()
+        .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(options =>
@@ -42,6 +48,10 @@ try
     builder.Services.AddMediatR(typeof(CreateGameCommand));
 
     builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+
+    builder.Services.AddTransient<IIgdbService, IgdbService>();
+
+    builder.Services.Configure<AppSettings>(builder.Configuration.GetSection(nameof(AppSettings)));
 
     var app = builder.Build();
 

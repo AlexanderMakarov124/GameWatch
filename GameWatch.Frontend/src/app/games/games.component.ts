@@ -18,7 +18,7 @@ export class GamesComponent implements OnInit {
   @Input() filter?: string;
   @Output() deleted = new EventEmitter();
 
-  displayedColumns = ['name', 'genre', 'createdAt'];
+  displayedColumns = ['name', 'genres', 'createdAt'];
 
   constructor() {}
 

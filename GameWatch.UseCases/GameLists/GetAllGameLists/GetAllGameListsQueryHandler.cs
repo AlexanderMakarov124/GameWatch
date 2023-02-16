@@ -24,12 +24,15 @@ public class GetAllGameListsQueryHandler : IRequestHandler<GetAllGameListsQuery,
     }
 
     /// <inheritdoc />
-    public Task<IEnumerable<GameList>> Handle(GetAllGameListsQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GameList>> Handle(GetAllGameListsQuery request, CancellationToken cancellationToken)
     {
-        var lists = db.GameLists.Include(gl => gl.Games);
+        var gameLists = await db.GameLists
+            .Include(gl => gl.Games)
+            .ThenInclude(g => g.Genres)
+            .ToListAsync(cancellationToken);
 
         logger.LogDebug("All game lists was successfully retrieved.");
 
-        return Task.FromResult<IEnumerable<GameList>>(lists);
+        return gameLists;
     }
 }

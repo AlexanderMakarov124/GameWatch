@@ -11,15 +11,13 @@ import { GameService } from '../shared/game.service';
   styleUrls: ['./create-game.component.css'],
 })
 export class CreateGameComponent implements OnInit {
-  linkRegex = /http|^$/;
+  linkOrEmptyRegex = /http|^$/;
 
   createGameForm = this.formBuilder.group({
     name: ['', [Validators.required, Validators.maxLength(75), this.alreadyExistName()]],
-    genre: ['', [Validators.required, Validators.maxLength(50)]],
     description: [''],
     gameListName: ['', [this.forbiddenNameValidator(/default/), Validators.required]],
-    storeLink: ['', this.mustBeLinkValidator(this.linkRegex)],
-    downloadLink: ['', this.mustBeLinkValidator(this.linkRegex)],
+    downloadLink: ['', this.mustBeLinkValidator(this.linkOrEmptyRegex)],
   });
 
   gameLists: GameList[] = [];
@@ -60,10 +58,8 @@ export class CreateGameComponent implements OnInit {
     const game = this.createGameForm.value as Game;
 
     game.name = game.name.trim();
-    game.genre = game.genre.trim();
     game.description = game.description.trim();
     game.gameListName = game.gameListName.trim();
-    game.storeLink = game.storeLink.trim();
     game.downloadLink = game.downloadLink.trim();
 
     this.gameService.createGame(game).subscribe();
@@ -86,6 +82,8 @@ export class CreateGameComponent implements OnInit {
       return forbidden ? { forbiddenName: { value: control.value } } : null;
     };
   }
+
+  /** Check that given name already exist in the database. */
   alreadyExistName(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (control.value) {
