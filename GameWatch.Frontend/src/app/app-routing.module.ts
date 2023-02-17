@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, UrlSegment } from '@angular/router';
+import { DummyComponent } from './dummy/dummy.component';
 import { CreateGameListComponent } from './game-lists/create-game-list/create-game-list.component';
 import { GameListDetailComponent } from './game-lists/game-list-detail/game-list-detail.component';
 import { GameListsComponent } from './game-lists/game-lists.component';
@@ -9,6 +10,7 @@ import { RandomGameComponent } from './games/random-game/random-game.component';
 
 const routes: Routes = [
   { path: '', component: GameListsComponent },
+  { path: 'dummy', component: DummyComponent},
   { path: 'games/create', component: CreateGameComponent },
   { path: 'games/find', component: FindGameComponent },
   { path: 'games/random', component: RandomGameComponent },

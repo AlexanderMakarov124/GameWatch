@@ -20,6 +20,7 @@ import { FindGameComponent } from './games/find-game/find-game.component';
 import { GameDetailComponent } from './games/game-detail/game-detail.component';
 import { GamesComponent } from './games/games.component';
 import { RandomGameComponent } from './games/random-game/random-game.component';
+import { DummyComponent } from './dummy/dummy.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RandomGameComponent } from './games/random-game/random-game.component';
     FindGameComponent,
     GamesComponent,
     RandomGameComponent,
+    DummyComponent,
   ],
   imports: [
     BrowserModule,
