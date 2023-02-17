@@ -1,9 +1,10 @@
-.game-list{
+.game-list {
     display: inline;
-    margin-right: 5px;
+    margin-right: 20px;
 }
 
-.game-list-name:hover, .game-list-name--activated{
+.game-list-name:hover,
+.game-list-name--activated {
     cursor: pointer;
     text-decoration: underline;
 }
