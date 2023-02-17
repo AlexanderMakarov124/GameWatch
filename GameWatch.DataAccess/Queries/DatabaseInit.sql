@@ -16,14 +16,23 @@ END
 GO
 
 
+
 -- Create tables.
 
 EXECUTE CreateGameLists
 
+EXECUTE CreateGenres
+
 EXECUTE CreateGames
+
+EXECUTE CreateGameGenre
 
 -- Insert data.
 
 EXECUTE InsertGameLists
 
+EXECUTE InsertGenres
+
 EXECUTE InsertGames
+
+EXECUTE InsertGameGenre

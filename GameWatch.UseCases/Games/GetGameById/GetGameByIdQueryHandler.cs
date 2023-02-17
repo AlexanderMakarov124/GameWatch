@@ -28,6 +28,8 @@ public class GetGameByIdQueryHandler : IRequestHandler<GetGameByIdQuery, Game>
 
         var game = await db.Games.FirstOrDefaultAsync(g => g.Id == id, cancellationToken);
 
+        await db.Entry(game!).Collection(g => g.Genres).LoadAsync(cancellationToken);
+
         if (game == null)
         {
             throw new NotFoundException($"Game with id {id} does not exist.");

@@ -1,0 +1,11 @@
+CREATE PROCEDURE CreateGameGenre
+AS
+	CREATE TABLE GameGenre
+	(
+		GameId INT NOT NULL,
+		GenreId INT NOT NULL,
+
+		CONSTRAINT PK_GameGenre PRIMARY KEY CLUSTERED (GameId ASC, GenreId ASC),
+		CONSTRAINT FK_GameGenre_Games FOREIGN KEY (GameId) REFERENCES Games (Id),
+		CONSTRAINT FK_GameGenre_Genres FOREIGN KEY (GenreId) REFERENCES Genres (Id)
+	)
