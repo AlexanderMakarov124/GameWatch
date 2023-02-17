@@ -8,7 +8,10 @@
         <ng-template #defaultLabel>
             <label class="game-list-name" (click)="onSelect(gameList)">{{gameList.name}}</label>
         </ng-template>
-        <a routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList"> Details </a>
+        <!-- <a routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList"> Details </a> -->
+        <a mat-icon-button aria-label="Edit link" routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList">
+            <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon>
+        </a>
     </div>
 </div>
 
