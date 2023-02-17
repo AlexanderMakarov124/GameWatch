@@ -25,7 +25,7 @@ export class GameDetailComponent implements OnInit {
   delete(): void {
     this.gameService
       .deleteGame(this.game?.name as string)
-      .pipe(tap(_ => this.deleted.emit()))
+      .pipe(tap(() => this.deleted.emit()))
       .subscribe();
   }
 }

@@ -34,7 +34,7 @@ public class IgdbService : IIgdbService
 
         var games = await igdb.QueryAsync<Game>(IGDBClient.Endpoints.Games, query);
 
-        var game = games.First(g => g.Name.ToLower().Equals(name.ToLower()));
+        var game = games.FirstOrDefault(g => g.Name.ToLower().Equals(name.ToLower())) ?? games.First();
 
         return game;
     }

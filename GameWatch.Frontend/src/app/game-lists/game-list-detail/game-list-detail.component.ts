@@ -37,7 +37,7 @@ export class GameListDetailComponent implements OnInit {
   delete(): void {
     this.gameListService
       .deleteGameList(this.gameList?.id as number)
-      .pipe(tap(_ => this.router.navigateByUrl('')))
+      .pipe(tap(() => this.router.navigateByUrl('')))
       .subscribe();
   }
 }

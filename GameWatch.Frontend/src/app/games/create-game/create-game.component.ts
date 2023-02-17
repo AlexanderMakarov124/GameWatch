@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { catchError, tap } from 'rxjs';
 import { GameList } from 'src/app/game-lists/shared/game-list.model';
 import { GameListService } from 'src/app/game-lists/shared/game-list.service';
 import { Game } from '../shared/game.model';
@@ -22,6 +23,8 @@ export class CreateGameComponent implements OnInit {
 
   gameLists: GameList[] = [];
   games?: Game[];
+
+  result?: string;
 
   constructor(
     private gameService: GameService,
@@ -62,9 +65,15 @@ export class CreateGameComponent implements OnInit {
     game.gameListName = game.gameListName.trim();
     game.downloadLink = game.downloadLink.trim();
 
-    this.gameService.createGame(game).subscribe();
-
-    // this.games$?.pipe()
+    this.gameService
+      .createGame(game)
+      .pipe(
+        tap(() => {
+          this.result = `Game ${game.name} was successfully created.`;
+        }),
+        catchError(error => (this.result = `Error was encountered: ${error}`))
+      )
+      .subscribe();
   }
 
   getAllGameLists(): void {
