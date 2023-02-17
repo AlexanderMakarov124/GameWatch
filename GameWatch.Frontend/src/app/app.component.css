@@ -3,7 +3,11 @@ nav {
     font-size: var(--nav-font-size);
 }
 
-.navbar-brand{
+.navbar-brand {
     --navbar-font-size: 32px;
     font-size: var(--navbar-font-size);
+}
+
+.nav-link {
+    cursor: pointer;
 }
