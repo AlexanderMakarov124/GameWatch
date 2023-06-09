@@ -8,7 +8,7 @@ namespace GameWatch.UseCases.DTOs;
 public record GameDto
 {
     /// <inheritdoc cref="Game.Name"/>
-    public string Name { get; init; } = null!;
+    public required string Name { get; init; }
 
     /// <inheritdoc cref="Game.Description"/>
     public string? Description { get; init; }
@@ -16,7 +16,7 @@ public record GameDto
     /// <summary>
     /// Name of the list which this game belongs.
     /// </summary>
-    public string GameListName { get; init; } = null!;
+    public required string GameListName { get; init; }
 
     /// <inheritdoc cref="Game.DownloadLink"/>
     public string? DownloadLink { get; init; }
