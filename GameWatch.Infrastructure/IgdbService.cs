@@ -23,7 +23,8 @@ public class IgdbService : IIgdbService
 
         igdb = new IGDBClient(
             this.appSettings.IgdbClientId,
-            this.appSettings.IgdbClientSecret
+            this.appSettings.IgdbClientSecret,
+            new InMemoryTokenStore()
         );
     }
 
