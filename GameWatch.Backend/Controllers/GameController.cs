@@ -39,21 +39,18 @@ public class GameController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken)
     {
-        var command = new CreateGameCommand
-        {
-            GameDto = gameDto
-        };
+        Game game; 
 
         try
         {
-            await mediator.Send(command, cancellationToken);
+            game = await mediator.Send(new CreateGameCommand { GameDto = gameDto }, cancellationToken);
         }
-        catch (NotFoundException)
+        catch (NotFoundException ex)
         {
-            return BadRequest();
+            return BadRequest(ex.Message);
         }
 
-        return StatusCode(201);
+        return StatusCode(201, game);
     }
 
     /// <summary>

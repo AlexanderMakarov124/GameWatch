@@ -14,9 +14,9 @@ using Game = GameWatch.Domain.Entities.Game;
 namespace GameWatch.UseCases.Games.CreateGame;
 
 /// <summary>
-/// Handler to create game command.
+/// Handler to <see cref="CreateGameCommand"/>.
 /// </summary>
-public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
+public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
 {
     private readonly ApplicationContext db;
     private readonly ILogger<CreateGameCommandHandler> logger;
@@ -36,7 +36,7 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
     }
 
     /// <inheritdoc />
-    public async Task<Unit> Handle(CreateGameCommand request, CancellationToken cancellationToken)
+    public async Task<Game> Handle(CreateGameCommand request, CancellationToken cancellationToken)
     {
         var gameDto = request.GameDto;
 
@@ -83,6 +83,6 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Unit>
             game.Id,
             gameDto.GameListName);
 
-        return default;
+        return game;
     }
 }
