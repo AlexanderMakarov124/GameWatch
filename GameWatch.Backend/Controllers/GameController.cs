@@ -34,6 +34,7 @@ public class GameController : ControllerBase
     /// </summary>
     /// <param name="gameDto">Game DTO.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <response code="201">Successfully created.</response>
     /// <returns>Status 201 - Created.</returns>
     [HttpPost]
     public async Task<IActionResult> CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken)
