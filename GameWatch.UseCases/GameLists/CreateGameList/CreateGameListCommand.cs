@@ -6,7 +6,7 @@ namespace GameWatch.UseCases.GameLists.CreateGameList;
 /// <summary>
 /// Command to create a game list.
 /// </summary>
-public record CreateGameListCommand : IRequest
+public record CreateGameListCommand : IRequest<Unit>
 {
     /// <summary>
     /// Game list DTO.

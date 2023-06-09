@@ -6,7 +6,7 @@ namespace GameWatch.UseCases.GameLists.UpdateGameList;
 /// <summary>
 /// Command to update game list.
 /// </summary>
-public record UpdateGameListCommand : IRequest
+public record UpdateGameListCommand : IRequest<Unit>
 {
     /// <summary>
     /// Update game list.

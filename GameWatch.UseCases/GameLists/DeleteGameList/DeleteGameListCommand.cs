@@ -5,7 +5,7 @@ namespace GameWatch.UseCases.GameLists.DeleteGameList;
 /// <summary>
 /// Command to delete a game list.
 /// </summary>
-public record DeleteGameListCommand : IRequest
+public record DeleteGameListCommand : IRequest<Unit>
 {
     /// <summary>
     /// Identifier of a game list.

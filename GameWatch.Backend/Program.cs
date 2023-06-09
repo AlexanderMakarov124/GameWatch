@@ -8,7 +8,9 @@ using GameWatch.Infrastructure.Abstractions;
 using GameWatch.Infrastructure.Common;
 using GameWatch.UseCases.Games.CreateGame;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
@@ -45,7 +47,7 @@ try
 
     builder.Services.AddAutoMapper(typeof(GameMappingProfile));
 
-    builder.Services.AddMediatR(typeof(CreateGameCommand));
+    builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateGameCommand).Assembly));
 
     builder.Services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
