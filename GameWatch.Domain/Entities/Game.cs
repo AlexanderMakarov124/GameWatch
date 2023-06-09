@@ -1,4 +1,6 @@
-﻿namespace GameWatch.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GameWatch.Domain.Entities;
 
 /// <summary>
 /// Game.
@@ -8,7 +10,8 @@ public class Game
     /// <summary>
     /// Identifier.
     /// </summary>
-    public int Id { get; init; }
+    [Key]
+    public int Id { get; set; }
 
     /// <summary>
     /// Name.
@@ -43,7 +46,7 @@ public class Game
     /// <summary>
     /// Link to download the game.
     /// </summary>
-    public string? DownloadLink { get; init; }
+    public string? DownloadLink { get; set; }
 
     /// <summary>
     /// Cover of the game.

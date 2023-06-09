@@ -13,7 +13,7 @@ public class Genre
     /// <summary>
     /// Name.
     /// </summary>
-    public string Name { get; init; }
+    public required string Name { get; init; }
 
-    public ICollection<Game> Games { get; init; } = null;
+    public ICollection<Game> Games { get; init; } = new List<Game>(500);
 }

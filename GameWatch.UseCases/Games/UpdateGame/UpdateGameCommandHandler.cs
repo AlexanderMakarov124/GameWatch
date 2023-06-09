@@ -1,5 +1,6 @@
 ﻿using GameWatch.DataAccess;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameWatch.UseCases.Games.UpdateGame;
@@ -24,9 +25,10 @@ public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, Unit>
     /// <inheritdoc />
     public async Task<Unit> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
     {
-        var game = request.Game;
+        var game = await db.Games.FirstAsync(g => g.Id == request.Game.Id, cancellationToken);
 
-        db.Update(game);
+        game.Description = request.Game.Description;
+
         await db.SaveChangesAsync(cancellationToken);
 
         logger.LogDebug("Game with id {Id} was successfully updated.", game.Id);

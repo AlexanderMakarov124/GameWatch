@@ -18,5 +18,5 @@ public class GameList
     /// <summary>
     /// Games related to the game list.
     /// </summary>
-    public ICollection<Game> Games { get; set; } = null!;
+    public ICollection<Game> Games { get; set; } = new List<Game>(500);
 }
