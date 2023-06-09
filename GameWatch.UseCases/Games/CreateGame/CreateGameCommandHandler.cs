@@ -41,7 +41,8 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
         var gameDto = request.GameDto;
 
         var gameList = await db.GameLists
-            .FirstOrDefaultAsync(gl => gl.Name.ToLower().Equals(gameDto.GameListName.ToLower()), cancellationToken);
+            .FirstOrDefaultAsync(
+                gl => gl.Name.Equals(gameDto.GameListName), cancellationToken);
 
         if (gameList == null)
         {

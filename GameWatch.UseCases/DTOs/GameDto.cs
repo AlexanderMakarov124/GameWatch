@@ -1,6 +1,10 @@
 ﻿using GameWatch.Domain.Entities;
 
 namespace GameWatch.UseCases.DTOs;
+
+/// <summary>
+/// DTO for <see cref="Game"/>.
+/// </summary>
 public record GameDto
 {
     /// <inheritdoc cref="Game.Name"/>

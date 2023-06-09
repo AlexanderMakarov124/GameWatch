@@ -35,7 +35,8 @@ public class GameController : ControllerBase
     /// <param name="gameDto">Game DTO.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <response code="201">Successfully created.</response>
-    /// <returns>Status 201 - Created.</returns>
+    /// <response code="400">Creating failed.</response>
+    /// <returns>Created game.</returns>
     [HttpPost]
     public async Task<IActionResult> CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken)
     {
@@ -50,13 +51,16 @@ public class GameController : ControllerBase
             return BadRequest(ex.Message);
         }
 
-        return StatusCode(201, game);
+        var gameUri = $"{Request.Path.Value}/{game.Id}";
+
+        return Created(gameUri, game);
     }
 
     /// <summary>
     /// GET all games.
     /// </summary>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <response code="200">Games was successfully fetched.</response>
     /// <returns>Games.</returns>
     [HttpGet]
     public async Task<IActionResult> GetAllGames(CancellationToken cancellationToken)
@@ -73,24 +77,21 @@ public class GameController : ControllerBase
     /// </summary>
     /// <param name="id">Game id.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <response code="200">Game was successfully fetched.</response>
+    /// <response code="404">Game was not found.</response>
     /// <returns>Game.</returns>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
     {
-        var query = new GetGameByIdQuery
-        {
-            Id = id
-        };
-
         Game game;
 
         try
         {
-            game = await mediator.Send(query, cancellationToken);
+            game = await mediator.Send(new GetGameByIdQuery { Id = id }, cancellationToken);
         }
         catch (NotFoundException)
         {
-            return BadRequest();
+            return NotFound();
         }
 
         return Ok(game);
@@ -101,16 +102,12 @@ public class GameController : ControllerBase
     /// </summary>
     /// <param name="name">Name.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <response code="200">Games was successfully fetched.</response>
     /// <returns>Games.</returns>
     [HttpGet("{name}")]
     public async Task<IActionResult> GetGamesByName(string name, CancellationToken cancellationToken)
     {
-        var query = new GetGamesByNameQuery
-        {
-            Name = name
-        };
-
-        var games = await mediator.Send(query, cancellationToken);
+        var games = await mediator.Send(new GetGamesByNameQuery { Name = name }, cancellationToken);
 
         return Ok(games);
     }
@@ -120,16 +117,12 @@ public class GameController : ControllerBase
     /// </summary>
     /// <param name="game">Updated game.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
+    /// <response code="200">Games was successfully updated.</response>
     /// <returns>Status 200 - ok.</returns>
     [HttpPut]
     public async Task<IActionResult> UpdateGame(Game game, CancellationToken cancellationToken)
     {
-        var command = new UpdateGameCommand
-        {
-            Game = game
-        };
-
-        await mediator.Send(command, cancellationToken);
+        await mediator.Send(new UpdateGameCommand { Game = game }, cancellationToken);
 
         return Ok();
     }
@@ -139,17 +132,13 @@ public class GameController : ControllerBase
     /// </summary>
     /// <param name="name">Name of the game to delete.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <returns>Status 200 - ok.</returns>
+    /// <response code="204">Game was successfully deleted and nothing to return.</response>
+    /// <returns>Status 204 - no content.</returns>
     [HttpDelete("{name}")]
     public async Task<IActionResult> DeleteGame(string name, CancellationToken cancellationToken)
     {
-        var command = new DeleteGameCommand
-        {
-            Name = name
-        };
+        await mediator.Send(new DeleteGameCommand { Name = name }, cancellationToken);
 
-        await mediator.Send(command, cancellationToken);
-
-        return Ok();
+        return NoContent();
     }
 }
