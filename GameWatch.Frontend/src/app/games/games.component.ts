@@ -11,12 +11,10 @@ import { Game } from './shared/game.model';
 })
 export class GamesComponent implements OnInit {
   @Input() games?: Game[];
-  selectedGame?: Game;
   dataSource!: MatTableDataSource<Game>;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Input() filter?: string;
-  @Output() deleted = new EventEmitter();
 
   displayedColumns = ['name', 'genres', 'createdAt'];
 
@@ -30,27 +28,26 @@ export class GamesComponent implements OnInit {
       }
       return g;
     });
-    this.dataSource = new MatTableDataSource(this.games);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    if (this.filter != undefined) {
-      this.dataSource.filterPredicate = function(record, filter){
-        const searchResult = record.genres.find(genre => genre.name.trim().toLowerCase().includes(filter)) != undefined
-        || record.name.trim().toLowerCase().includes(filter)
-        || record.createdAt.toString().includes(filter);
-        return searchResult
+
+    setTimeout(() => {
+      this.dataSource = new MatTableDataSource(this.games);    
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      
+      if (this.filter != undefined) {
+        this.dataSource.filterPredicate = function(record, filter){
+          const searchResult = record.genres.find(genre => genre.name.trim().toLowerCase().includes(filter)) != undefined
+          || record.name.trim().toLowerCase().includes(filter)
+          || record.createdAt.toString().includes(filter);
+          return searchResult
+        }
+        this.dataSource.filter = this.filter.trim().toLowerCase();
       }
-      this.dataSource.filter = this.filter.trim().toLowerCase();
-    }
+    })
     
-    this.selectedGame = undefined;
   }
   
   ngOnInit(): void {
     this.ngOnChanges()
-  }
-
-  onSelect(game: Game): void {
-    this.selectedGame = game;
   }
 }
