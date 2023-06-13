@@ -4,11 +4,11 @@ import { Game } from '../shared/game.model';
 import { GameService } from '../shared/game.service';
 
 @Component({
-  selector: 'app-search-game',
-  templateUrl: './search-game.component.html',
-  styleUrls: ['./search-game.component.css'],
+  selector: 'app-search-games',
+  templateUrl: './search-games.component.html',
+  styleUrls: ['./search-games.component.css'],
 })
-export class SearchGameComponent implements OnInit {
+export class SearchGamesComponent implements OnInit {
   games: Game[] = [];
   filter?: string;
 
@@ -24,7 +24,7 @@ export class SearchGameComponent implements OnInit {
     let name: string = this.searchForm.value.name as string;
     name = name.trim();
 
-    this.gameService.searchGames(name).subscribe(games => (this.games = games));
-    this.filter = name;
+    this.gameService.searchGames().subscribe(games => (this.games = games));
+    this.filter = name.toLowerCase();
   }
 }

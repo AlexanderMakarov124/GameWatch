@@ -34,11 +34,18 @@ export class GamesComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     if (this.filter != undefined) {
-      this.dataSource.filter = this.filter;
+      this.dataSource.filterPredicate = function(record, filter){
+        const searchResult = record.genres.find(genre => genre.name.trim().toLowerCase().includes(filter)) != undefined
+        || record.name.trim().toLowerCase().includes(filter)
+        || record.createdAt.toString().includes(filter);
+        return searchResult
+      }
+      this.dataSource.filter = this.filter.trim().toLowerCase();
     }
+    
     this.selectedGame = undefined;
   }
-
+  
   ngOnInit(): void {}
 
   onSelect(game: Game): void {
