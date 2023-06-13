@@ -1,10 +1,9 @@
 ﻿using GameWatch.DataAccess;
-using GameWatch.Infrastructure.Common.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GameWatch.UseCases.Games.UpdateGame;
+namespace GameWatch.UseCases.Games.Commands.UpdateGame;
 
 /// <summary>
 /// Handler to update game command.

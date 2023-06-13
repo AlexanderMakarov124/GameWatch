@@ -1,8 +1,7 @@
 ﻿using GameWatch.Domain.Entities;
-using GameWatch.UseCases.DTOs;
 using MediatR;
 
-namespace GameWatch.UseCases.Games.CreateGame;
+namespace GameWatch.UseCases.Games.Commands.CreateGame;
 
 /// <summary>
 /// Command to create a game.
@@ -10,7 +9,7 @@ namespace GameWatch.UseCases.Games.CreateGame;
 public record CreateGameCommand : IRequest<Game>
 {
     /// <summary>
-    /// Game DTO.
+    /// Create game DTO.
     /// </summary>
-    public GameDto GameDto { get; init; } = null!;
+    public CreateGameDto GameDto { get; init; }
 }

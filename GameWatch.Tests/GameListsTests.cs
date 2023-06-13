@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using GameWatch.Backend.MappingProfiles;
 using GameWatch.Infrastructure.Common.Exceptions;
 using GameWatch.Tests.Utilities;
 using GameWatch.UseCases.DTOs;
+using GameWatch.UseCases.GameLists;
 using GameWatch.UseCases.GameLists.CreateGameList;
 using GameWatch.UseCases.GameLists.DeleteGameList;
 using GameWatch.UseCases.GameLists.GetAllGameLists;

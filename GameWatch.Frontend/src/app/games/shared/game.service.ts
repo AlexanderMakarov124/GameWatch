@@ -42,9 +42,9 @@ export class GameService {
    * @returns Game.
    */
   getGameById(id: number): Observable<Game> {
-    const url = `${this.gamesUrl}/${id}`;
+    const uri = `${this.gamesUrl}/${id}`;
 
-    return this.http.get<Game>(url).pipe(catchError(this.handleError<Game>(`getGameById id=${id}`)));
+    return this.http.get<Game>(uri).pipe(catchError(this.handleError<Game>(`getGameById id=${id}`)));
   }
 
   /**

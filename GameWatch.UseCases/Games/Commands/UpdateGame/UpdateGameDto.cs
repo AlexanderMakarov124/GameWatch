@@ -1,6 +1,6 @@
 ﻿using GameWatch.Domain.Entities;
 
-namespace GameWatch.UseCases.Games.UpdateGame;
+namespace GameWatch.UseCases.Games.Commands.UpdateGame;
 /// <summary>
 /// DTO for updating <see cref="Game"/>.
 /// </summary>

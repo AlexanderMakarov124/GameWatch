@@ -1,6 +1,6 @@
 <h3>Game lists</h3>
 
-<div>
+<div *ngIf="gameLists.length > 0; else emptyLists">
     <div class="game-list" *ngFor="let gameList of gameLists">
         <label class="game-list-name--activated" (click)="onSelect(gameList)"
             *ngIf="gameList.name == selectedGameList?.name; else defaultLabel">{{gameList.name}}
@@ -8,11 +8,14 @@
         <ng-template #defaultLabel>
             <label class="game-list-name" (click)="onSelect(gameList)">{{gameList.name}}</label>
         </ng-template>
-        <!-- <a routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList"> Details </a> -->
         <a mat-icon-button aria-label="Edit link" routerLink="/gameLists/{{gameList.id}}" (gameList)="gameList">
             <mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon>
         </a>
     </div>
+
+    <app-games [games]="selectedGameList?.games" (deleted)="onDelete()"></app-games>
 </div>
 
-<app-games [games]="selectedGameList?.games" (deleted)="onDelete()"></app-games>
+<ng-template #emptyLists>
+    <p>There are no games.</p>
+</ng-template>

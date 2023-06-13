@@ -7,14 +7,17 @@ import { GameListsComponent } from './game-lists/game-lists.component';
 import { CreateGameComponent } from './games/create-game/create-game.component';
 import { FindGameComponent } from './games/find-game/find-game.component';
 import { RandomGameComponent } from './games/random-game/random-game.component';
+import { GameDetailComponent } from './games/game-detail/game-detail.component';
 
 const routes: Routes = [
-  { path: '', component: GameListsComponent },
-  { path: 'dummy', component: DummyComponent},
+  { path: '', redirectTo: '/games', pathMatch: 'full' },
+  { path: 'games', component: GameListsComponent },
   { path: 'games/create', component: CreateGameComponent },
   { path: 'games/find', component: FindGameComponent },
   { path: 'games/random', component: RandomGameComponent },
+  { path: 'games/:id', component: GameDetailComponent },
   { path: 'gameLists/create', component: CreateGameListComponent },
+  { path: 'dummy', component: DummyComponent},
   {
     matcher: url => {
       if (url.length === 2 && url[0].path == 'gameLists' && url[1].path.match(/\d/gm)) {

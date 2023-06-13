@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Game } from '../shared/game.model';
 import { GameService } from '../shared/game.service';
-import { tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { GameList } from 'src/app/game-lists/shared/game-list.model';
 import { GameListService } from 'src/app/game-lists/shared/game-list.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-detail',
@@ -11,25 +12,35 @@ import { GameListService } from 'src/app/game-lists/shared/game-list.service';
   styleUrls: ['./game-detail.component.css'],
 })
 export class GameDetailComponent implements OnInit {
-  @Input() game?: Game;
+  game$!: Observable<Game>;
   @Output() deleted = new EventEmitter();
   gameLists: GameList[] = [];
 
-  constructor(private gameService: GameService, private gameListService: GameListService) {}
+  constructor(  
+    private route: ActivatedRoute,
+    private router: Router,
+    private gameService: GameService, 
+    private gameListService: GameListService) {}
 
   ngOnInit(): void {
+
+    this.game$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.gameService.getGameById(Number(params.get('id'))))
+    );
+
     this.gameListService.getAllGameLists().subscribe(result => this.gameLists = result);
   }
 
-  save(): void {
-    if (this.game) {
-      this.gameService.updateGame(this.game).subscribe();
+  save(game: Game): void {
+    if (this.game$) {
+      this.gameService.updateGame(game).subscribe();
     }
   }
 
-  delete(): void {
+  delete(game: Game): void {
     this.gameService
-      .deleteGame(this.game?.name as string)
+      .deleteGame(game.name as string)
       .pipe(tap(() => this.deleted.emit()))
       .subscribe();
   }

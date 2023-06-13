@@ -1,17 +1,14 @@
 ﻿using AutoMapper;
 using GameWatch.DataAccess;
 using GameWatch.Domain.Entities;
-using GameWatch.Infrastructure;
 using GameWatch.Infrastructure.Abstractions;
 using GameWatch.Infrastructure.Common.Exceptions;
-using GameWatch.UseCases.DTOs;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using IGDB;
 using Game = GameWatch.Domain.Entities.Game;
 
-namespace GameWatch.UseCases.Games.CreateGame;
+namespace GameWatch.UseCases.Games.Commands.CreateGame;
 
 /// <summary>
 /// Handler to <see cref="CreateGameCommand"/>.
@@ -75,7 +72,6 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
         }
 
         gameList.Games.Add(game);
-
         await db.SaveChangesAsync(cancellationToken);
 
         logger.LogDebug(

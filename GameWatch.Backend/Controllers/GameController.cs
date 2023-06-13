@@ -1,12 +1,10 @@
 ﻿using GameWatch.Domain.Entities;
 using GameWatch.Infrastructure.Common.Exceptions;
-using GameWatch.UseCases.DTOs;
-using GameWatch.UseCases.Games.CreateGame;
-using GameWatch.UseCases.Games.DeleteGame;
-using GameWatch.UseCases.Games.GetAllGames;
-using GameWatch.UseCases.Games.GetGameById;
-using GameWatch.UseCases.Games.GetGamesByName;
-using GameWatch.UseCases.Games.UpdateGame;
+using GameWatch.UseCases.Games.Commands.CreateGame;
+using GameWatch.UseCases.Games.Commands.DeleteGame;
+using GameWatch.UseCases.Games.Commands.UpdateGame;
+using GameWatch.UseCases.Games.Queries.GetGameById;
+using GameWatch.UseCases.Games.Queries.SearchGames;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,7 +36,7 @@ public class GameController : ControllerBase
     /// <response code="400">Creating failed.</response>
     /// <returns>Created game.</returns>
     [HttpPost]
-    public async Task<IActionResult> CreateGameAsync(GameDto gameDto, CancellationToken cancellationToken)
+    public async Task<IActionResult> CreateGameAsync(CreateGameDto gameDto, CancellationToken cancellationToken)
     {
         Game game; 
 
@@ -57,17 +55,16 @@ public class GameController : ControllerBase
     }
 
     /// <summary>
-    /// GET all games.
+    /// Search games.
     /// </summary>
+    /// <param name="name">Search games that contain this name.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <response code="200">Games was successfully fetched.</response>
     /// <returns>Games.</returns>
     [HttpGet]
-    public async Task<IActionResult> GetAllGames(CancellationToken cancellationToken)
+    public async Task<IActionResult> SearchGames([FromQuery] string? name, CancellationToken cancellationToken)
     {
-        var query = new GetAllGamesQuery();
-
-        var games = await mediator.Send(query, cancellationToken);
+        var games = await mediator.Send(new SearchGamesQuery(name), cancellationToken);
 
         return Ok(games);
     }
@@ -80,7 +77,7 @@ public class GameController : ControllerBase
     /// <response code="200">Game was successfully fetched.</response>
     /// <response code="404">Game was not found.</response>
     /// <returns>Game.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("{id:int}")]
     public async Task<IActionResult> GetGameById(int id, CancellationToken cancellationToken)
     {
         Game game;
@@ -95,21 +92,6 @@ public class GameController : ControllerBase
         }
 
         return Ok(game);
-    }
-
-    /// <summary>
-    /// GET games that contain given name.
-    /// </summary>
-    /// <param name="name">Name.</param>
-    /// <param name="cancellationToken">Token to cancel the operation.</param>
-    /// <response code="200">Games was successfully fetched.</response>
-    /// <returns>Games.</returns>
-    [HttpGet("{name}")]
-    public async Task<IActionResult> GetGamesByName(string name, CancellationToken cancellationToken)
-    {
-        var games = await mediator.Send(new GetGamesByNameQuery { Name = name }, cancellationToken);
-
-        return Ok(games);
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using GameWatch.Domain.Entities;
 using MediatR;
 
-namespace GameWatch.UseCases.Games.GetGameById;
+namespace GameWatch.UseCases.Games.Queries.GetGameById;
 
 /// <summary>
 /// Query to get game by id.

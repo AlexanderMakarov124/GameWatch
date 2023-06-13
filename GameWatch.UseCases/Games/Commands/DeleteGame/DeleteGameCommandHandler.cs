@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace GameWatch.UseCases.Games.DeleteGame;
+namespace GameWatch.UseCases.Games.Commands.DeleteGame;
 
 /// <summary>
 /// Handler to delete game command.

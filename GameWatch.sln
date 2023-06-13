@@ -17,9 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWatch.Infrastructure.Co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWatch.UseCases", "GameWatch.UseCases\GameWatch.UseCases.csproj", "{45CC74B1-7671-4E78-B61E-A64AB3F34415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatch.Infrastructure", "GameWatch.Infrastructure\GameWatch.Infrastructure.csproj", "{25C25A93-3336-4259-B9F8-E85D1C54E7BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWatch.Infrastructure", "GameWatch.Infrastructure\GameWatch.Infrastructure.csproj", "{25C25A93-3336-4259-B9F8-E85D1C54E7BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWatch.Infrastructure.Abstractions", "GameWatch.Infrastructure.Abstractions\GameWatch.Infrastructure.Abstractions.csproj", "{E485FD5C-8B25-4F8C-B569-019139968E60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameWatch.Infrastructure.Abstractions", "GameWatch.Infrastructure.Abstractions\GameWatch.Infrastructure.Abstractions.csproj", "{E485FD5C-8B25-4F8C-B569-019139968E60}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{BDEC80F4-BB16-411C-85BA-F5871D976FC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F8D49FD1-D474-4367-BAA9-98AA2DAC0E93}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{DD293C7F-517A-43CD-B480-CD57497C01C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,6 +74,16 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FCE1808B-15D0-49D8-A8FC-FCC22E2990BF} = {DD293C7F-517A-43CD-B480-CD57497C01C1}
+		{4475DFA0-B9F3-431E-AFF7-9871F601A1FD} = {DD293C7F-517A-43CD-B480-CD57497C01C1}
+		{E0797A14-253B-4A82-B8E0-F6BFAE9CFEE4} = {F8D49FD1-D474-4367-BAA9-98AA2DAC0E93}
+		{99F1EC91-A718-4A86-BC43-9AD273C614D4} = {BDEC80F4-BB16-411C-85BA-F5871D976FC9}
+		{D6CA9406-08A5-4463-88A4-D5D3F2815F2A} = {F8D49FD1-D474-4367-BAA9-98AA2DAC0E93}
+		{45CC74B1-7671-4E78-B61E-A64AB3F34415} = {BDEC80F4-BB16-411C-85BA-F5871D976FC9}
+		{25C25A93-3336-4259-B9F8-E85D1C54E7BB} = {F8D49FD1-D474-4367-BAA9-98AA2DAC0E93}
+		{E485FD5C-8B25-4F8C-B569-019139968E60} = {F8D49FD1-D474-4367-BAA9-98AA2DAC0E93}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EAB02C79-3DA5-44F6-A409-9E26FC56041D}

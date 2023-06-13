@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace GameWatch.UseCases.Games.DeleteGame;
+namespace GameWatch.UseCases.Games.Commands.DeleteGame;
 
 /// <summary>
 /// Command to delete a game.

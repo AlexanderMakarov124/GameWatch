@@ -1,7 +1,4 @@
-﻿using GameWatch.DataAccess;
-using IGDB;
-
-namespace GameWatch.Infrastructure;
+﻿namespace GameWatch.Infrastructure;
 
 //internal class CustomTokenStore /*: ITokenStore*/
 //{

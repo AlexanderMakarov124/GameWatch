@@ -2,7 +2,7 @@
 using GameWatch.Domain.Entities;
 using GameWatch.UseCases.DTOs;
 
-namespace GameWatch.Backend.MappingProfiles;
+namespace GameWatch.UseCases.GameLists;
 
 /// <summary>
 /// Game list mapping profile.

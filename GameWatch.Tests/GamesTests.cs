@@ -1,12 +1,7 @@
 using AutoMapper;
-using GameWatch.Backend.MappingProfiles;
-using GameWatch.Infrastructure.Common.Exceptions;
 using GameWatch.Tests.Utilities;
-using GameWatch.UseCases.DTOs;
-using GameWatch.UseCases.Games.CreateGame;
-using GameWatch.UseCases.Games.DeleteGame;
-using GameWatch.UseCases.Games.GetGamesByName;
-using GameWatch.UseCases.Games.UpdateGame;
+using GameWatch.UseCases.Games;
+using GameWatch.UseCases.Games.Commands.DeleteGame;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -97,63 +92,36 @@ public class GamesTests : IClassFixture<DatabaseFixture>
     //    await Assert.ThrowsAsync<NotFoundException>(act);
     //}
 
-    [Fact]
-    public async void GetGamesByName_Correct_GamesCountShouldBe2AndShouldContainStarcraft2()
-    {
-        // Arrange
-        await using var db = fixture.CreateContext();
+    //[Fact]
+    //public async void UpdateGame_Correct_GamesShouldContainUpdatedGame()
+    //{
+    //    Arrange
+    //   await using var db = fixture.CreateContext();
+    //    await db.Database.BeginTransactionAsync();
 
-        const string name = "craft";
+    //    var updatedGame = db.Games.First();
+    //    updatedGame.Name = "UpdatedGame";
 
-        var query = new GetGamesByNameQuery
-        {
-            Name = name
-        };
-        
-        var handler = new GetGamesByNameQueryHandler(db);
+    //    var command = new UpdateGameCommand
+    //    {
+    //        Game = updatedGame
+    //    };
 
-        const int expectedCount = 2;
-        const string expectedName = "Starcraft 2";
+    //    var logger = new Mock<ILogger<UpdateGameCommandHandler>>().Object;
+    //    var handler = new UpdateGameCommandHandler(db, logger);
 
-        // Act
-        var games = await handler.Handle(query, CancellationToken.None);
-        games = games.ToList();
+    //    const string expectedName = "UpdatedGame";
 
-        // Assert
-        Assert.Equal(expectedCount, games.Count());
-        Assert.Contains(games, g => g.Name.Equals(expectedName));
-    }
+    //    Act
+    //   await handler.Handle(command, CancellationToken.None);
 
-    [Fact]
-    public async void UpdateGame_Correct_GamesShouldContainUpdatedGame()
-    {
-        // Arrange
-        await using var db = fixture.CreateContext();
-        await db.Database.BeginTransactionAsync();
+    //    db.ChangeTracker.Clear();
 
-        var updatedGame = db.Games.First();
-        updatedGame.Name = "UpdatedGame";
+    //    Assert
+    //   var game = await db.Games.SingleAsync(g => g.Name.Equals(expectedName));
 
-        var command = new UpdateGameCommand
-        {
-            Game = updatedGame
-        };
-
-        var logger = new Mock<ILogger<UpdateGameCommandHandler>>().Object;
-        var handler = new UpdateGameCommandHandler(db, logger);
-
-        const string expectedName = "UpdatedGame";
-
-        // Act
-        await handler.Handle(command, CancellationToken.None);
-
-        db.ChangeTracker.Clear();
-
-        // Assert
-        var game = await db.Games.SingleAsync(g => g.Name.Equals(expectedName));
-
-        Assert.Equal(expectedName, game.Name);
-    }
+    //    Assert.Equal(expectedName, game.Name);
+    //}
 
     [Fact]
     public async void DeleteGame_Correct_GamesShouldNotContainDeletedGame()

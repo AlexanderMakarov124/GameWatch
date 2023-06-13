@@ -1,5 +1,4 @@
 ﻿using GameWatch.Domain.Entities;
-using IGDB;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameWatch.DataAccess;

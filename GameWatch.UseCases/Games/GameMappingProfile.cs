@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using GameWatch.Domain.Entities;
-using GameWatch.UseCases.DTOs;
+using GameWatch.UseCases.Games.Queries.SearchGames;
 
-namespace GameWatch.Backend.MappingProfiles;
+namespace GameWatch.UseCases.Games;
 
 /// <summary>
 /// Game mapping profile.
@@ -14,6 +14,8 @@ public class GameMappingProfile : Profile
     /// </summary>
     public GameMappingProfile()
     {
-        CreateMap<GameDto, Game>().ForMember(destination => destination.CreatedAt, options => options.MapFrom(date => DateTime.Now));
+        CreateMap<GameDto, Game>()
+            .ReverseMap()
+            .ForMember(dto => dto.Genres, options => options.MapFrom(entity => entity.Genres.Select(genre => genre.Name)));
     }
 }

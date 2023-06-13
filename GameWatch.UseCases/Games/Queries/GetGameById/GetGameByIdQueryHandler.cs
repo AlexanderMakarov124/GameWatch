@@ -4,7 +4,7 @@ using GameWatch.Infrastructure.Common.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace GameWatch.UseCases.Games.GetGameById;
+namespace GameWatch.UseCases.Games.Queries.GetGameById;
 
 /// <summary>
 /// Handler to get game by id query.

@@ -1,7 +1,6 @@
-﻿using GameWatch.Domain.Entities;
-using MediatR;
+﻿using MediatR;
 
-namespace GameWatch.UseCases.Games.UpdateGame;
+namespace GameWatch.UseCases.Games.Commands.UpdateGame;
 
 /// <summary>
 /// Command to update a game.

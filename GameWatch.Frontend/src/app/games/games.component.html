@@ -23,7 +23,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row (click)="onSelect(game)" *matRowDef="let game; columns: displayedColumns;"></tr>
+        <tr mat-row [routerLink]="['/games', game.id]" *matRowDef="let game; columns: displayedColumns;"></tr>
 
         <tr *matNoDataRow>
             <td colspan="4">There are no games.</td>
@@ -35,4 +35,4 @@
     </mat-paginator>
 </div>
 
-<app-game-detail [game]="selectedGame" (deleted)="onDelete()"></app-game-detail>
+<!-- <app-game-detail [game]="selectedGame" (deleted)="onDelete()"></app-game-detail> -->
