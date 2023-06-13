@@ -1,4 +1,5 @@
 ﻿using GameWatch.DataAccess;
+using GameWatch.Infrastructure.Common.Exceptions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -25,12 +26,12 @@ public class UpdateGameCommandHandler : IRequestHandler<UpdateGameCommand, Unit>
     /// <inheritdoc />
     public async Task<Unit> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
     {
-        var game = await db.Games.FirstAsync(g => g.Id == request.Game.Id, cancellationToken);
+        var game = await db.Games.FirstAsync(g => g.Id == request.Id, cancellationToken);
 
         game.Description = request.Game.Description;
+        game.GameListId = request.Game.GameListId;
 
         await db.SaveChangesAsync(cancellationToken);
-
         logger.LogDebug("Game with id {Id} was successfully updated.", game.Id);
 
         return default;

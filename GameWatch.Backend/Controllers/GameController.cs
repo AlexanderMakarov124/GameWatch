@@ -113,16 +113,17 @@ public class GameController : ControllerBase
     }
 
     /// <summary>
-    /// PUT: Updates game.
+    /// PATCH: Updates game.
     /// </summary>
+    /// <param name="id">Game id.</param>
     /// <param name="game">Updated game.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <response code="200">Games was successfully updated.</response>
     /// <returns>Status 200 - ok.</returns>
-    [HttpPut]
-    public async Task<IActionResult> UpdateGame(Game game, CancellationToken cancellationToken)
+    [HttpPatch("{id}")]
+    public async Task<IActionResult> UpdateGame(int id, UpdateGameDto game, CancellationToken cancellationToken)
     {
-        await mediator.Send(new UpdateGameCommand { Game = game }, cancellationToken);
+        await mediator.Send(new UpdateGameCommand { Id = id, Game = game }, cancellationToken);
 
         return Ok();
     }

@@ -61,13 +61,13 @@ export class GameService {
   }
 
   /**
-   * PUT: Updates the game on the server.
+   * PATCH: Updates the game on the server.
    *
    * @param game - Game to update.
    */
   updateGame(game: Game): Observable<any> {
     return this.http
-      .put(this.gamesUrl, game, this.httpOptions)
+      .patch(`${this.gamesUrl}/${game.id}`, game, this.httpOptions)
       .pipe(catchError(this.handleError<any>('updateGame')));
   }
 

@@ -36,7 +36,7 @@ public class Game
     /// <summary>
     /// Game list which the game belongs to.
     /// </summary>
-    public int GameListId { get; init; }
+    public int GameListId { get; set; }
 
     /// <summary>
     /// Link to store with the game.

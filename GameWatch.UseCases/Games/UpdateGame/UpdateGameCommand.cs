@@ -8,8 +8,10 @@ namespace GameWatch.UseCases.Games.UpdateGame;
 /// </summary>
 public record UpdateGameCommand : IRequest<Unit>
 {
+    public int Id { get; init; }
+
     /// <summary>
     /// Updated game.
     /// </summary>
-    public Game Game { get; init; } = null!;
+    public UpdateGameDto Game { get; init; }
 }

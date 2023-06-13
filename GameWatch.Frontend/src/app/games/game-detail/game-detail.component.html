@@ -29,6 +29,15 @@
             </div>
 
             <div class="form-group">
+                <label for="game-list">Game list:</label>
+                <select id="game-list" class="form-control" placeholder="Game list" [(ngModel)]="game.gameListId">
+                    <option *ngFor="let gameList of gameLists" [value]="gameList.id" [selected]="gameList.id == game.gameListId">
+                        {{gameList.name}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
                 <label for="summary">Summary:</label>
                 <p>{{game.summary}}</p>
             </div>
