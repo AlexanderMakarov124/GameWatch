@@ -15,5 +15,8 @@ public class Genre
     /// </summary>
     public required string Name { get; init; }
 
+    /// <summary>
+    /// Games with this genre.
+    /// </summary>
     public ICollection<Game> Games { get; init; } = new List<Game>(500);
 }

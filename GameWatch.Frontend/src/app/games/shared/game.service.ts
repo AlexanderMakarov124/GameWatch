@@ -26,13 +26,20 @@ export class GameService {
       .post<Game>(this.gamesUrl, game, this.httpOptions)
       .pipe(catchError(this.handleError<Game>('createGame')));
   }
+
   /**
-   * GET all games.
+   * GET: Search games.
    *
-   * @returns All games.
+   * @returns Games.
    */
-  getAllGames(): Observable<Game[]> {
-    return this.http.get<Game[]>(this.gamesUrl).pipe(catchError(this.handleError<Game[]>('getAllGames')));
+  searchGames(name?: string): Observable<Game[]> {
+
+    let uri = this.gamesUrl;
+    if (name != undefined){
+      uri = `${uri}?name=${name}`
+    }
+
+    return this.http.get<Game[]>(this.gamesUrl).pipe(catchError(this.handleError<Game[]>('searchGames')));
   }
 
   /**

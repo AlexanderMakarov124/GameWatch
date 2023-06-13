@@ -30,7 +30,7 @@ public class SearchGamesQueryHandler : IRequestHandler<SearchGamesQuery, IEnumer
 
         if (request.Name != null)
         {
-            games = games.Where(g => g.Name.Contains(request.Name));
+            games = games.Where(game => game.Name.Contains(request.Name));
         }
 
         return await games

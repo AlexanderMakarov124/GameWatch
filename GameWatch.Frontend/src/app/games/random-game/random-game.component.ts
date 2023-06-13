@@ -14,7 +14,7 @@ export class RandomGameComponent implements OnInit {
   constructor(private gameService: GameService, private gameListService: GameListService) {}
 
   ngOnInit(): void {
-    this.gameService.getAllGames().subscribe(games => this.getRandomGame(games));
+    this.gameService.searchGames().subscribe(games => this.getRandomGame(games));
   }
 
   getRandomGame(games: Game[]): void {

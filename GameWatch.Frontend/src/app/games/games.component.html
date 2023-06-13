@@ -7,14 +7,12 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
             <td mat-cell *matCellDef="let game"> {{game.name}} </td>
         </ng-container>
-
         <ng-container matColumnDef="genres">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by genres"> Genres </th>
             <td mat-cell *matCellDef="let game"> 
                 <label *ngFor="let genre of game.genres"> {{genre.name}}&nbsp;</label>
             </td>
         </ng-container>
-
         <ng-container matColumnDef="createdAt">
             <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by created at">
                 Created At

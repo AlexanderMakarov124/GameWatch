@@ -81,7 +81,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   getAllGames(): void {
-    this.gameService.getAllGames().subscribe(allGames => (this.games = allGames));
+    this.gameService.searchGames().subscribe(allGames => (this.games = allGames));
   }
 
   /** A name can't match the given regular expression */

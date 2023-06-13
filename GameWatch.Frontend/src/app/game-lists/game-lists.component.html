@@ -1,6 +1,6 @@
 <h3>Game lists</h3>
 
-<div *ngIf="gameLists.length > 0; else emptyLists">
+<div *ngIf="gameLists.length > 0 else emptyLists">
     <div class="game-list" *ngFor="let gameList of gameLists">
         <label class="game-list-name--activated" (click)="onSelect(gameList)"
             *ngIf="gameList.name == selectedGameList?.name; else defaultLabel">{{gameList.name}}
