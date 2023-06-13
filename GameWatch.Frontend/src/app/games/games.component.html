@@ -23,7 +23,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row [routerLink]="['/games', game.id]" *matRowDef="let game; columns: displayedColumns;"></tr>
 
-        <tr *matNoDataRow>
+        <tr class="no-data-row" *matNoDataRow>
             <td colspan="4">There are no games.</td>
         </tr>
 
@@ -32,5 +32,3 @@
     <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons aria-label="Select page of games">
     </mat-paginator>
 </div>
-
-<!-- <app-game-detail [game]="selectedGame" (deleted)="onDelete()"></app-game-detail> -->

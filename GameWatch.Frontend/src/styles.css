@@ -26,3 +26,7 @@ button,
     font-size: var(--common-font-size);
     font-family: var(--common-font-family);
 }
+
+.operation-result{
+    margin-top: 3%;
+ }

@@ -57,14 +57,13 @@ public class GameController : ControllerBase
     /// <summary>
     /// Search games.
     /// </summary>
-    /// <param name="name">Search games that contain this name.</param>
     /// <param name="cancellationToken">Token to cancel the operation.</param>
     /// <response code="200">Games was successfully fetched.</response>
     /// <returns>Games.</returns>
     [HttpGet]
-    public async Task<IActionResult> SearchGames([FromQuery] string? name, CancellationToken cancellationToken)
+    public async Task<IActionResult> SearchGames(CancellationToken cancellationToken)
     {
-        var games = await mediator.Send(new SearchGamesQuery(name), cancellationToken);
+        var games = await mediator.Send(new SearchGamesQuery(), cancellationToken);
 
         return Ok(games);
     }

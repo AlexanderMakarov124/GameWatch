@@ -26,14 +26,7 @@ public class SearchGamesQueryHandler : IRequestHandler<SearchGamesQuery, IEnumer
     /// <inheritdoc />
     public async Task<IEnumerable<GameDto>> Handle(SearchGamesQuery request, CancellationToken cancellationToken)
     {
-        var games = db.Games.AsQueryable();
-
-        if (request.Name != null)
-        {
-            games = games.Where(game => game.Name.Contains(request.Name));
-        }
-
-        return await games
+        return await db.Games
             .ProjectTo<GameDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
     }

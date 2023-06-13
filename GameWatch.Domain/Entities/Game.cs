@@ -31,7 +31,7 @@ public class Game
     /// <summary>
     /// Date when the game was created.
     /// </summary>
-    public DateTime CreatedAt { get; init; }
+    public DateTime CreatedAt { get; set; }
 
     /// <summary>
     /// Game list which the game belongs to.

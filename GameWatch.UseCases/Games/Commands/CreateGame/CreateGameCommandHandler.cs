@@ -51,6 +51,7 @@ public class CreateGameCommandHandler : IRequestHandler<CreateGameCommand, Game>
         await db.Entry(gameList).Collection(gl => gl.Games).LoadAsync(cancellationToken);
 
         var game = mapper.Map<Game>(gameDto);
+        game.CreatedAt = DateTime.UtcNow;
 
         var igdbGame = await igdb.GetGameByNameAsync(game.Name);
 

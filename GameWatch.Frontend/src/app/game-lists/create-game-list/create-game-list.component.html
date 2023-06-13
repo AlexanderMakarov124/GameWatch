@@ -10,7 +10,7 @@
         <button type="submit" class="btn btn-primary" [disabled]="!createGameListForm.valid">Create</button>
     </form>
 
-    <div *ngIf="result">
+    <div class="operation-result" *ngIf="result">
         <p>{{result}}</p>
     </div>
 </div>

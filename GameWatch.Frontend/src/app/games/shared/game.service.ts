@@ -8,7 +8,7 @@ import { Game } from './game.model';
   providedIn: 'root',
 })
 export class GameService {
-  private gamesUrl = 'api/games';
+  private gamesUri = 'api/games';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -23,7 +23,7 @@ export class GameService {
    */
   createGame(game: Game): Observable<Game> {
     return this.http
-      .post<Game>(this.gamesUrl, game, this.httpOptions)
+      .post<Game>(this.gamesUri, game, this.httpOptions)
       .pipe(catchError(this.handleError<Game>('createGame')));
   }
 
@@ -32,14 +32,8 @@ export class GameService {
    *
    * @returns Games.
    */
-  searchGames(name?: string): Observable<Game[]> {
-
-    let uri = this.gamesUrl;
-    if (name != undefined){
-      uri = `${uri}?name=${name}`
-    }
-
-    return this.http.get<Game[]>(this.gamesUrl).pipe(catchError(this.handleError<Game[]>('searchGames')));
+  searchGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(this.gamesUri).pipe(catchError(this.handleError<Game[]>('searchGames')));
   }
 
   /**
@@ -49,7 +43,7 @@ export class GameService {
    * @returns Game.
    */
   getGameById(id: number): Observable<Game> {
-    const uri = `${this.gamesUrl}/${id}`;
+    const uri = `${this.gamesUri}/${id}`;
 
     return this.http.get<Game>(uri).pipe(catchError(this.handleError<Game>(`getGameById id=${id}`)));
   }
@@ -61,7 +55,7 @@ export class GameService {
    * @returns Games.
    */
   getGamesByName(name: string): Observable<Game[]> {
-    const url = `${this.gamesUrl}/${name}`;
+    const url = `${this.gamesUri}/${name}`;
     return this.http
       .get<Game[]>(url)
       .pipe(catchError(this.handleError<Game[]>(`getGamesByName name=${name}`)));
@@ -74,7 +68,7 @@ export class GameService {
    */
   updateGame(game: Game): Observable<any> {
     return this.http
-      .patch(`${this.gamesUrl}/${game.id}`, game, this.httpOptions)
+      .patch(`${this.gamesUri}/${game.id}`, game, this.httpOptions)
       .pipe(catchError(this.handleError<any>('updateGame')));
   }
 
@@ -84,7 +78,7 @@ export class GameService {
    *  @param name - Name of the game to delete.
    */
   deleteGame(name: string): Observable<Game> {
-    const url = `${this.gamesUrl}/${name}`;
+    const url = `${this.gamesUri}/${name}`;
 
     return this.http
       .delete<Game>(url, this.httpOptions)

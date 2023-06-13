@@ -46,14 +46,11 @@ export class GamesComponent implements OnInit {
     this.selectedGame = undefined;
   }
   
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ngOnChanges()
+  }
 
   onSelect(game: Game): void {
     this.selectedGame = game;
-  }
-
-  onDelete(): void {
-    this.deleted.emit();
-    this.selectedGame = undefined;
   }
 }

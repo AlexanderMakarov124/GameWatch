@@ -27,3 +27,7 @@
 .mat-mdc-row:hover .mat-mdc-cell {
     border-color: var(--active-color);
 }
+
+.no-data-row{
+    height: 50px;
+}

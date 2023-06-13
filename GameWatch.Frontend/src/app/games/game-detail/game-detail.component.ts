@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Game } from '../shared/game.model';
 import { GameService } from '../shared/game.service';
 import { Observable, switchMap, tap } from 'rxjs';
@@ -41,7 +41,7 @@ export class GameDetailComponent implements OnInit {
   delete(game: Game): void {
     this.gameService
       .deleteGame(game.name as string)
-      .pipe(tap(() => this.deleted.emit()))
-      .subscribe();
+      .pipe(tap(_ => this.router.navigate(['/games'])))
+      .subscribe();      
   }
 }
