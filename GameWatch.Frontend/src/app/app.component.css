@@ -11,3 +11,15 @@ nav {
 .nav-link {
     cursor: pointer;
 }
+
+.container {
+    margin-top: 1%;
+    min-height: calc(100vh - 70px);
+  }
+
+.footer {
+    height: 40px;
+    background-color: lightgray;
+    margin-top: 5%;
+    text-align: center;
+  }
