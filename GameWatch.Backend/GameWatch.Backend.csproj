@@ -23,6 +23,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameWatch.DataAccess\GameWatch.DataAccess.csproj" />
+	  <ProjectReference Include="..\GameWatch.Frontend\GameWatch.Frontend.esproj">
+		  <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+	  </ProjectReference>
     <ProjectReference Include="..\GameWatch.Infrastructure.Common\GameWatch.Infrastructure.Common.csproj" />
     <ProjectReference Include="..\GameWatch.UseCases\GameWatch.UseCases.csproj" />
   </ItemGroup>
